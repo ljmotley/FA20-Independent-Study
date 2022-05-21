@@ -49,7 +49,7 @@ dma_name1  dma_name2  dma_name3  dma_name4  dma_name5
 . tempfile county_dma
 
 . save `county_dma'
-file /var/folders/5f/zcch5q8d2q103qwcgxl8js680000gn/T//S_56716.000001 saved
+file /var/folders/5f/zcch5q8d2q103qwcgxl8js680000gn/T//S_57527.000001 saved
 
 . 
 . use dma_json_id dma_name using "../input/dma_merged_analysis_file.dta", clear
@@ -130,10 +130,10 @@ variable dma_name was str16 now str17
     -----------------------------------------
 
 . 
-. rename (state statefp cntyfp county dma_json_id) (state_abbr state cty cty_name dma)
+. rename (dma_json_id state statefp cntyfp county) (dma state_abbr state cty cty_name)
 
 . 
-. order state state_abbr cty cty_name dma dma_name
+. order dma dma_name state state_abbr cty cty_name
 
 . 
 . compress
@@ -141,9 +141,12 @@ variable dma_name was str16 now str17
   (3,121 bytes saved)
 
 . 
-. export delimited "../output/dma_to_cty.csv", replace
-(note: file ../output/dma_to_cty.csv not found)
-file ../output/dma_to_cty.csv saved
+. lab data "Trends DMA Code to County (Google DMA - Nielsen DMA - County)"
+
+. 
+. save "../output/dma_to_cty.dta", replace
+(note: file ../output/dma_to_cty.dta not found)
+file ../output/dma_to_cty.dta saved
 
 . 
 end of do-file

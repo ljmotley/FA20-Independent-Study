@@ -42,10 +42,12 @@ drop if dma_name == "US"
 
 merge 1:m state dma_name using `county_dma', nogen
 
-rename (state statefp cntyfp county dma_json_id) (state_abbr state cty cty_name dma)
+rename (dma_json_id state statefp cntyfp county) (dma state_abbr state cty cty_name)
 
-order state state_abbr cty cty_name dma dma_name
+order dma dma_name state state_abbr cty cty_name
 
 compress
 
-export delimited "../output/dma_to_cty.csv", replace
+lab data "Trends DMA Code to County (Google DMA - Nielsen DMA - County)"
+
+save "../output/dma_to_cty.dta", replace

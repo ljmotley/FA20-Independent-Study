@@ -1,7 +1,7 @@
 SHELL=bash
 include ../../shell_functions.make
 
-OUTPUT = $(foreach stub, dma_merged_analysis_file.dta MSA_workfromhome.csv Zearn-County-Weekly.csv cty_to_cbsa.csv, ../output/$(stub))
+OUTPUT = $(foreach stub, dma_merged_analysis_file.dta MSA_workfromhome.csv Zearn-County-Weekly.csv county_cbsa.csv, ../output/$(stub))
 
 all: $(OUTPUT)
 
@@ -14,7 +14,7 @@ all: $(OUTPUT)
 ../output/dma_merged_analysis_file.dta: | ../output ../output/nber.zip
 	unzip -p ../output/nber.zip dma_merged_analysis_file.dta >../output/dma_merged_analysis_file.dta
 
-../output/cty_to_cbsa.csv: | ../output
+../output/county_cbsa.csv: | ../output
 	wget https://data.nber.org/cbsa-csa-fips-county-crosswalk/cbsa2fipsxw.csv -O $@
 
 .INTERMEDIATE: ../output/nber.zip

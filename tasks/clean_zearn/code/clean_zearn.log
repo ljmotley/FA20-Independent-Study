@@ -1,0 +1,96 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   16.1   Copyright 1985-2019 StataCorp LLC
+  Statistics/Data analysis            StataCorp
+                                      4905 Lakeway Drive
+                                      College Station, Texas 77845 USA
+                                      800-STATA-PC        https://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+Stata license: Single-user  perpetual
+Serial number: 301606346132
+  Licensed to: Luke Motley
+               
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+
+. do "clean_zearn.do" 
+
+. import delimited using "../input/Zearn-County-Weekly.csv", clear case(lower)
+(9 vars, 270,199 obs)
+
+. tostring year month day, replace
+year was int now str4
+month was byte now str2
+day_endofweek was byte now str2
+
+. gen str_date = month + "/" + day + "/" + year
+
+. gen week = date(str_date, "MDY")
+
+. format week %d
+
+. 
+. rename countyfips cty
+
+. 
+. gen exists_break_badges = [!mi(break_badges)]
+
+. gen exists_break_engagement = [!mi(break_engagement)]
+
+. gen exists_badges = [!mi(badges)]
+
+. gen exists_engagement = [!mi(engagement)]
+
+. 
+. count if exists_break_badges & exists_engagement
+  0
+
+. assert(`r(N)' == 0)
+
+. 
+. count if exists_break_engagement & exists_badges
+  0
+
+. assert(`r(N)' == 0)
+
+. 
+. gen break = [exists_break_engagement | exists_break_engagement]
+
+. 
+. replace badges = max(badges, break_badges)
+(89,387 real changes made)
+
+. replace engagement = max(badges, break_engagement)
+(242,380 real changes made, 6 to missing)
+
+. 
+. keep cty week engagement badges imputed_from_cz break
+
+. order cty week engagement badges imputed_from_cz break
+
+. 
+. lab var week "END OF WEEK DAY"
+
+. 
+. gsort cty week
+
+. 
+. compress
+  variable week was float now int
+  variable break was float now byte
+  (1,350,995 bytes saved)
+
+. 
+. lab data "Zearn learning outcome variables"
+
+. 
+. save "../output/zearn_outcomes.dta"
+file ../output/zearn_outcomes.dta saved
+
+. 
+end of do-file
