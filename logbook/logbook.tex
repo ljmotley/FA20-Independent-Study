@@ -65,14 +65,14 @@ Luke Motley
   tabsize=3
 }
 
-\input{./entries/listings-stata.tex}   %From https://gist.github.com/mcaceresb/b40d6059cf66cc73423f4ddf3f72acda
+\input{entries/listings-stata.tex}   %From https://gist.github.com/mcaceresb/b40d6059cf66cc73423f4ddf3f72acda
 
 %%FORMATTING
 \onehalfspacing
 \numberwithin{equation}{section}
 \numberwithin{figure}{section}
 \numberwithin{table}{section}
-\bibliographystyle{../bib/aea}
+% \bibliographystyle{../bib/aea}
 
 \newtheorem{observation}{Observation}
 
@@ -93,8 +93,7 @@ Luke Motley
 
 %%LOGBOOK ENTRIES: Research design
 \chapter{Research design}
-
-
+\input{entries/20220522Motley.tex}   %From https://gist.github.com/mcaceresb/b40d6059cf66cc73423f4ddf3f72acda
 
 %%LOGBOOK ENTRIES: Data description
 \chapter{Data description}
@@ -109,26 +108,26 @@ Luke Motley
 
 
 %%LOGBOOK BIBLIOGRAPHY
-% \bibliography{../bib/doctors.bib}
+
 
 %%NON-CHRONOLOGICAL ENTRIES
 \chapter{Research infrastructure (from Jonathan Dingel)}
 \input{entries/researchinfrastructure.tex}
 
-\section{Task-based organization of code and data} \input{./entries/tasks.tex}
-\section{Writing code} \input{./entries/codestylesheet.tex}
-\section{Running code with Make} \input{./entries/make.tex}
-\section{Tracking code with Git} \input{./entries/git_alone.tex}
+\section{Task-based organization of code and data} \input{entries/tasks.tex}
+\section{Writing code} \input{entries/codestylesheet.tex}
+\section{Running code with Make} \input{entries/make.tex}
+\section{Tracking code with Git} \input{entries/git_alone.tex}
 
-\section{Sharing code via Git} \input{./entries/git_together.tex}
-\section{Sharing results via the logbook} \input{./entries/logbookexplained.tex}
+\section{Sharing code via Git} \input{entries/git_together.tex}
+\section{Sharing results via the logbook} \input{entries/logbookexplained.tex}
 
-\section{Unix/Linux shell commands} \input{./entries/unixshelltips.tex}
-\section{Aesthetics and visualization} \input{./entries/visualization.tex}
-\section{Manuscript preparation} \input{./entries/manuscriptpreparation.tex}
-\section{Notes on Julia} \input{./entries/juliaintro.tex}
+\section{Unix/Linux shell commands} \input{entries/unixshelltips.tex}
+\section{Aesthetics and visualization} \input{entries/visualization.tex}
+\section{Manuscript preparation} \input{entries/manuscriptpreparation.tex}
+\section{Notes on Julia} \input{entries/juliaintro.tex}
 
-\section{Notes on Stata} \input{./entries/statanotes.tex}
+\section{Notes on Stata} \input{entries/statanotes.tex}
 
 
 \end{document}

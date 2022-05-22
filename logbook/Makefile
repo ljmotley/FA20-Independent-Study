@@ -15,9 +15,10 @@ clean:
 clean_figs:
 	rm logbook-figure*.* scratch-figure*.* *.auxlock
 
-logbook.pdf: logbook.tex $(logbookentries) $(img_inputs) $(tex_inputs) | ../bib/doctors.bib
+# NEED TO MAKE THESE DEPENDENT ON BIB EVENTUALLY
+logbook.pdf: logbook.tex $(logbookentries) $(img_inputs) $(tex_inputs)
 	pdflatex -shell-escape -draftmode $<
-	bibtex $(basename $<).aux
+	# bibtex $(basename $<).aux
 	pdflatex -shell-escape -draftmode $<
 	pdflatex -shell-escape $<
 	rm $(basename $<).log $(basename $<).out $(basename $<).toc $(basename $<).aux
