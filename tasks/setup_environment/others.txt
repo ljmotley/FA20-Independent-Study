@@ -8,3 +8,5 @@ Stata can be annoying, not sure fully how $(STATA) and $(R) are set-up. Got it t
 Think I needed:
 export PATH=$PATH:/Applications/Stata/StataIC.app/Contents/MacOS
 and then to setup to run with -e flag. I dunno.
+
+brew install graphviz
