@@ -1,0 +1,201 @@
+Projects consist of tasks that depend on each other.
+If an upstream task changes, downstream tasks ought to be re-run using that new input.
+This is easy to do by hand when your project has a small number of tasks.
+This is hard to do when the tasks are computationally intensive and the input-output graph is complicated.
+Thankfully, computer programmers addressed these difficulties long ago with a Unix utility called \href{https://en.wikipedia.org/wiki/Make_(software)}{Make}.
+This is a popular form of the broader concept of \href{https://tradediversion.net/2019/11/06/why-your-research-project-needs-build-automation/}{build automation}.
+
+Makefiles are machine-readable documentation that make your workflow reproducible.
+They follow naturally from our task-based approach.
+Downstream tasks depend on upstream tasks.
+Using \texttt{make} requires you to specify those input-output relationship (dependencies).
+When generated files are missing, or when files they depend on have changed, needed files are re-made using a sequence of commands you specify.
+The commands are language-agnostic: if you can type it at the shell prompt,
+\texttt{make} can execute it.
+
+\subsection{Learn Make}
+
+The \href{https://www.youtube.com/watch?v=_Ms1Z4xfqv4}{first fifteen minutes} of
+\href{https://missing.csail.mit.edu/2020/metaprogramming/}{Lecture 8 in MIT's ``Missing Semester'' CS class}
+are a great introduction to Make.
+Start by watching that.
+
+Here are four written introductions to \texttt{make}, listed in the order that I suggest reading them:
+\begin{itemize}
+\item Mike Bostock: \href{https://bost.ocks.org/mike/make/}{Why Use Make}
+\item Karl Broman: \href{http://kbroman.org/minimal_make/}{minimal make}
+\item Kieran Healy: \href{http://plain-text.co/pull-it-together.html}{Pull It Together} (The Plain Person's Guide to Plain Text Social Science)
+\item Zachary M. Jones: \href{http://zmjones.com/make/}{GNU Make for Reproducible Data Analysis}
+\end{itemize}
+
+\subsection{Some simple examples of Makefiles}
+
+The \texttt{Makefile} in the \texttt{logbook} folder is a simple example.
+It compiles this PDF if \texttt{logbook.tex} or one of the elements of \texttt{\$(logbookentries)} is newer than \texttt{logbook.pdf}.
+
+Here is an example of what a Makefile in an ``initialdata" task folder might do.
+The following code is an excerpt from a Makefile that downloads Census data and produces a CSV by unzipping the downloaded file.
+\begin{lstlisting}[language=make]
+../output/mi_od_main_JT01_2010.csv: ../output/mi_od_main_JT01_2010.csv.gz
+	gunzip -c $< > $@
+../output/mi_od_main_JT01_2010.csv.gz: | ../output
+	wget "https://lehd.ces.census.gov/data/lodes/LODES7/mi/od/$(@F)" -O ../output/$(@F)
+../output:
+	mkdir $@
+\end{lstlisting}
+The first rule concerns the target \texttt{../output/mi\_od\_main\_JT01\_2010.csv}.
+The target lists a compressed file as its one pre-requisite.
+If the target does not exist or if the target is older than (any of) the pre-requisite(s) listed after the colon,
+then the recipe for that target is executed.
+The recipe for this target is simple: use \texttt{gunzip} to decompress the pre-requisite and write it to the target.
+
+Let's unpack that recipe in detail.
+\href{https://linux.die.net/man/1/gunzip}{gunzip} takes a list of files on its command line and replaces each file whose name ends with .gz, -gz, .z, -z, \_z or .Z with an uncompressed file without the original extension.
+\texttt{-c} is an option that writes output on standard output and keeps original files unchanged.
+The somewhat cryptic \texttt{\$<} and \texttt{\$@} are \href{https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html}{automatic variables} in Make.
+\texttt{\$<} is the first pre-requisite (\texttt{../output/mi\_od\_main\_JT01\_2010.csv.gz})
+and
+\texttt{\$@} is the target (\texttt{../output/mi\_od\_main\_JT01\_2010.csv}).
+\texttt{>} redirects output to a file, overwriting the file.
+(By the way, \texttt{>>} appends redirected output to the end of a file (rather than overwriting).)
+
+The second rule defines the compressed file from Census as the target.
+Its only pre-requisite is that the \texttt{../output} folder exist
+(an ``order-only prerequisite'' indicated by the pipe \texttt{|}).
+If \texttt{../output/} does not exist, the Makefile must provide a recipe to create it
+(see lines 5-6).
+The recipe for the compressed Census file is a \texttt{wget} command.
+\texttt{wget} is a free utility for non-interactive download of files from the web
+and \texttt{-O} is an option that concatenate all documents together and writes to the specified output file.
+The automatic variable \texttt{\$(@F)} equals \texttt{mi\_od\_main\_JT01\_2010.csv.gz},
+the file-within-directory part of the file name of the target.
+It is used in specify the web address of the Census file.
+
+If you type \texttt{make ../output/mi\_od\_main\_JT01\_2010.csv} at the command line, \texttt{make} will try to make the CSV target and see the CSV.GZ file as a pre-requisite.
+If the pre-requisite has not been already downloaded, \texttt{make} will create the \texttt{../output} directory if needed,
+then run the recipe to produce that CSV.GZ file (the \texttt{wget} command),
+and then execute the recipe to produce the target.
+
+After obtaining the initial data, we will use these data in (multiple) downstream tasks.
+Here is an excerpt from the Makefile in a task called \texttt{LODES\_datapreparation}.
+\begin{lstlisting}[language=make]
+../output/lodes_DetroitUA_2010.dta: DetroitUA_tract.do programs.do ../input/mi_od_main_JT01_2010.csv | ../output
+	$(STATA) $<
+../input/mi_od_main_JT01_2010.csv: ../../LODES_downloaddata/output/mi_od_main_JT01_2010.csv | ../input
+	ln -s $< $@
+../../%:
+	$(MAKE) -C $(subst output/,code/,$(dir $@)) ../output/$(notdir $@)
+\end{lstlisting}
+This target \texttt{../output/lodes\_DetroitUA\_2010.dta} has four pre-requisites:
+\texttt{DetroitUA\_tract.do}, \texttt{programs.do}, the CSV file that we described downloading above, and the \texttt{output} folder.
+The recipe for this target is to run the Stata script \texttt{DetroitUA\_tract.do} (referenced by \texttt{\$<}).
+\$(STATA)\$ is an alias for how we invoke Stata
+(modified to return a proper exit status and work with SLURM, ignore those details for now).
+In lines 3-4, \texttt{ln -s} creates a symbolic link called \texttt{../input/mi\_od\_main\_JT01\_2010.csv} that points to the upstream file
+\texttt{../../LODES\_downloaddata/output/mi\_od\_main\_JT01\_2010.csv}.
+The final two lines define a generic recipe for producing upstream content.
+The \texttt{\%} is a wildcard, so this recipe will be used for \textit{any} target whose path starts with \texttt{../../}.
+\texttt{../../LODES\_downloaddata/output/mi\_od\_main\_JT01\_2010.csv} is an example of such a target.
+If this file isn't already available,
+the recipe runs \texttt{make} in the upstream folder
+\texttt{../../LODES\_downloaddata/code}.
+Notice that it invokes a different Makefile (the one assumed to be in the \texttt{LODES\_downloaddata} task)
+in order to produce the target.
+
+\subsection{Notes on writing Makefiles}
+
+An important reminder: Each line in the recipe must start with a tab.
+See \href{https://www.gnu.org/software/make/manual/html_node/Recipe-Syntax.html}{Recipe Syntax}.
+
+A few notes on Makefile style.
+\begin{itemize}
+\item
+When you run \texttt{make} without specifying a target,
+its \href{https://www.gnu.org/software/make/manual/html_node/How-Make-Works.html#How-Make-Works}{default goal}
+is to build the first target listed in the file.
+Convention is to define \texttt{all} as the first target of the Makefile and list all desired targets as pre-requisites of \texttt{all}.
+\item It is helpful to define \href{https://www.gnu.org/software/make/manual/html_node/Variables-Simplify.html#Variables-Simplify}{variables} containing long lists of files, such as \texttt{INPUTS= file1 file2 file3}
+so that you can summarize dependencies simply by writing \texttt{\$(INPUTS)}
+and define targets simply by writing \texttt{all: \$(INPUTS) \$(OUTPUTS)}.
+However, it is only sensible to write a target-dependency relationship as
+\texttt{\$(OUTPUTS): \$(INPUTS)}
+if there is one recipe that produces all those outputs jointly.
+\item Writing separate recipes for separate targets is advantageous because Make will return more informative errors by telling you which recipe failed.
+\item \href{https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html}{Automatic variables} take values computed when the rule is executed based on the target and pre-requisites of the rule.
+Commonly used automatic variables include
+the file name of the target of the rule \texttt{\$@},
+the name of the first pre-requisite \texttt{\$<},
+and
+the file-within-directory part of the file name of the target \texttt{\$(@F)}.
+\item In addition to normal prerequisites, it might be helpful to define \href{https://www.gnu.org/software/make/manual/html_node/Prerequisite-Types.html}{order-only prerequisites}.
+Order-only prerequisites must exist in order for the target to be produced, but the target does not need to be newer than the order-only prerequisites.
+An example of prerequisites that should be regarded as order-only is folders, since ``the timestamps on directories change whenever a file is added, removed, or renamed, we certainly don’t want to rebuild all the targets whenever the directory’s timestamp changes'' (\href{https://www.gnu.org/software/make/manual/html_node/Prerequisite-Types.html}{GNU}).
+Order-only prerequisites are defined by listing them after the pipe symbol: \texttt{output: normal prerequisites | order-only prerequisites}.
+\item Make provides several built-in \href{https://www.gnu.org/software/make/manual/html_node/Functions.html\#Functions}{functions for transforming text}.
+Commonly used functions include \texttt{foreach} for performing text substitution by looping
+and \texttt{addprefix} for prepending prefix in front of individual names.
+\item In addition to executing recipes in the shell, you can define Make variables using shell commands by invoking Make's \texttt{shell} command.
+The simplest example would \texttt{\$(shell echo \{1..10\})}, which would return the integers from 1 to 10 via Bash's \href{https://www.shell-tips.com/bash/seq-brace-expansion/}{brace expansion}.
+\end{itemize}
+
+\textbf{Grouped targets}.
+Historically, Make (like most of neoclassical economics) has assumed
+``\href{https://doi.org/10.2307/2525367}{no joint production}''.
+If two targets are produced by the same recipe, Make assumes it needs to run the recipe twice.
+Consider this trivial shell script (\texttt{joint\_producer.sh})
+\begin{lstlisting}[language=bash]
+echo 'done' > output1.txt
+echo 'done' > output2.txt
+\end{lstlisting}
+accompanied by this trivial Makefile:
+\begin{lstlisting}[language=make]
+all: output1.txt output2.txt
+output1.txt output2.txt:
+	bash joint_producer.sh
+\end{lstlisting}
+Running the script once will produce both outputs.
+But what does Make think you need to do? Run it twice.
+In practice, after the first run, Make will see that the second target has been produced.
+But if you run Make with parallel threads, it will run the script twice simultaneously.
+\begin{lstlisting}[language=bash]
+jdingel$ make -n
+bash joint_producer.sh
+bash joint_producer.sh
+jdingel$ make
+bash joint_producer.sh
+jdingel$ rm output?.txt
+jdingel$ make -j 2
+bash joint_producer.sh
+bash joint_producer.sh
+\end{lstlisting}
+Make 4.3 (\href{https://lwn.net/Articles/810071/}{January 2020 release}) introduced
+``\href{https://www.gnu.org/software/make/manual/html_node/Multiple-Targets.html}{grouped targets}'',
+thereby allowing joint production.
+Make 4.3 would not make the mistake of submitting two copies of the same job when running parallel threads if you define the targets as grouped by \texttt{output1.txt output2.txt \&:},
+where the ampersand indicates grouped targets.
+I have typically refrained from using grouped targets because one cannot assume Make 4.3 will be available on most boxes (e.g., Midway2 is running GNU Make 3.82).
+
+A note on running Makefiles in a cluster computing environment that has a job scheduler:
+\begin{itemize}
+	\item A problem with batch jobs is that the shell sees the submission command as completed upon job submission any output files are produced.
+	Failing to see the output, Make will repeatedly submit the job.
+	\item You need the job submission command to not exit back to the shell until the job completes, so that the target will be produced before Make evaluates that recipe's success or failure.
+	\item With PBSPro's \texttt{qsub} at Census RDC, use \texttt{qsub -W block=true}.
+	\item With SLURM's \texttt{sbatch} at Chicago Midway, use \texttt{sbatch -W}.
+	\item Read \url{http://wresch.github.io/2012/11/01/qsub-submit-jobs-from-makefile.html} for more discussion of \texttt{qsub} and the \texttt{sbatch} \href{https://slurm.schedmd.com/sbatch.html}{manual} for discussion of \texttt{-W} or \texttt{--wait}.
+	\item I am not sure about the best practice for the Torque scheduler.
+\end{itemize}
+
+
+The following options are often relevant:
+\begin{itemize}
+	\item \texttt{-n}: Prints the recipes that would be executed without executing them. Great to preview what jobs you're going to launch by running Make.
+	\item \texttt{-j}: this option allows parallelization of jobs, i.e., contemporaneous execution of several recepies.
+	Normally, make executes one recipe at a time, but \texttt{-j} enables simultaneous execution.
+	\texttt{-j} is followed by an integer specifying the number of parallel processes.
+	The default number of jobs run is 1 (serial processing).
+	\item \texttt{--debug}: this option is useful to know how make analyzes your dependency graph. This option provides the most detailed information available other than running a debugger.
+	We make use of 2 suboptions of \texttt{--debug}: ``basic'' and ``verbose''.
+	When the ``basic'' suboption is used, make will print each target that is found out-of-date and the status of the update action.
+	``verbose'' replicates the ``basic'' suboption and includes additional information about files that were parsed, prerequisites that did not need to be rebuilt, etc.
+\end{itemize}

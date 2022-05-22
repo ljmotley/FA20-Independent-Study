@@ -1,0 +1,12 @@
+brew install wget
+brew install gdal
+
+cd /usr/local/bin
+sudo ln -s /Library/Frameworks/R.framework/Versions/4.0/Resources/bin/Rscript Rscript
+
+Stata can be annoying, not sure fully how $(STATA) and $(R) are set-up. Got it to work
+Think I needed:
+export PATH=$PATH:/Applications/Stata/StataIC.app/Contents/MacOS
+and then to setup to run with -e flag. I dunno.
+
+brew install graphviz
