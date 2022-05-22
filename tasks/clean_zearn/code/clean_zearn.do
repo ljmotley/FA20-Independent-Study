@@ -1,4 +1,4 @@
-import delimited using "../input/Zearn-County-Weekly.csv", clear case(lower)
+import delimited using "../input/Zearn_County_Weekly.csv", clear case(lower)
 tostring year month day, replace
 gen str_date = month + "/" + day + "/" + year
 gen week = date(str_date, "MDY")

@@ -5,7 +5,7 @@ OUTPUT = $(foreach stub, dma_merged_analysis_file.dta MSA_workfromhome.csv Zearn
 
 all: $(OUTPUT)
 
-../output/Zearn-County-Weekly.csv: | ../output
+../output/Zearn_County_Weekly.csv: | ../output
 	wget https://raw.githubusercontent.com/OpportunityInsights/EconomicTracker/main/data/Zearn%20-%20County%20-%20Weekly.csv -O $@
 
 ../output/MSA_workfromhome.csv: | ../output

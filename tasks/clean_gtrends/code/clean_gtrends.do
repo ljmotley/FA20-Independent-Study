@@ -2,18 +2,25 @@ use "../input/dma_merged_analysis_file.dta", clear
 
 rename dma_json_id dma
 
-preserve
-keep dma dma_name week specific* generic google_classroom khan_academy kahoot placebo*
+if "`1'" == "outcomes" {
+  keep dma dma_name week specific* generic google_classroom khan_academy kahoot placebo*
 
-label data "Bacher-Hicks et al. Google Trends Outcomes"
+  label data "Bacher-Hicks et al. Google Trends Outcomes"
 
-save "../output/gtrends_outcomes.dta", replace
-restore
+  compress
 
-drop week specific* generic google_classroom khan_academy kahoot placebo*
+  save "../output/gtrends_outcomes_dma.dta", replace
+}
+else if "`1'" == "non_outcomes" {
+  drop week specific* generic google_classroom khan_academy kahoot placebo*
 
-gsort dma week
+  gsort dma
 
-label data "Bacher-Hicks et al. non-outcome variables (population, covariates, etc.)"
+  duplicates drop
 
-save "../output/gtrends_non-outcomes.dta", replace
+  label data "Bacher-Hicks et al. non-outcome variables (population, covariates, etc.)"
+
+  compress
+
+  save "../output/gtrends_non_outcomes_dma.dta", replace
+}
