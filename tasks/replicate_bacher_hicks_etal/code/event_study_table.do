@@ -2,10 +2,13 @@ assert inlist("`1'", "zero_omit", "zero_one")
 local version = "`1'"
 use "../input/gtrends_outcomes_dma.dta" if dma != "US", clear
 
+if "`version'" == "zero_one" local title "Changes in Search Intensity by Socioeconomic Status and Other Measures"
+if "`version'" == "zero_omit" local title "Changes in Search Intensity, excluding low search intensity observations"
+
 do replication_dataprep
 
 drop if inrange(weeks_since_covid, 0, 3)
-drop if weeks_since_covid > 12
+drop if inrange(weeks_since_covid, 13, .)
 
 // Merge in other variables used in the regression
 // Year fixed effects really changes it compared to school-year
@@ -34,7 +37,7 @@ local opts "a f plain coll(none) nodep nomti c(b(star fmt(%9.2f)) se(abs par fmt
 local temp "../output/temp.tex"
 file open  t using "`temp'", replace write
 file write t	"\begin{table}[htbp] \centering" _n "\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}" _n ///
-				"\caption{Changes in Search Intensity by Socioeconomic Status and Other Measures}" _n ///
+				"\caption{`title'}" _n ///
         "\scalebox{0.7}{" _n ///
 				"\begin{tabular*}{1\textwidth}{@{\extracolsep{\fill}}l*{4}{c}}" _n "\midrule" _n ///
 				"&School-	&Parent-	&			&		\\" _n ///

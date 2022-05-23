@@ -1,7 +1,7 @@
 gen weeks_since_covid = round((week - date("3/1/2020", "MDY"))/7)
 gen week_of_year = week(week)
 gen year = year(week)
-gen schoolyear = year(week)+(month(week)>=6)
+gen schoolyear = year(week)+(inrange(month(week), 6, 12))
 
 preserve
 use "../input/gtrends_non_outcomes_dma.dta", clear
@@ -17,7 +17,6 @@ replace sch_rural = sch_rural*10
 replace stu_black = (stu_black)*10
 
 gen high_ses = [sesq2==2]
-gen low_ses = !high_ses
 
 tempfile other_reg_vars
 save `other_reg_vars'
@@ -30,4 +29,4 @@ gen xmas	 = inlist(week,20442,20813,21177,21541,21905)
 gen newyrs = inlist(week,20449,20814,21184,21548,21912)
 drop if thxgiv|xmas|newyrs
 
-gen post_covid = [weeks_since_covid > 0]
+gen post_covid = [inrange(weeks_since_covid, 0, .)]

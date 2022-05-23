@@ -27,14 +27,14 @@ else if "`version'" == "intensity" {
 
 // Merge in other variables used in the regression
 do replication_dataprep
-drop if weeks_since_covid > 12
+drop if inrange(weeks_since_covid, 13, .)
 
 // restrict analysis to appropriate window
 local max 12
 local fig_max 10
 local min -25
 local fig_min -25
-gen pre_period = [weeks_since_covid < `min']
+gen pre_period = [inrange(weeks_since_covid, ., `min')]
 replace weeks_since_covid = 0 if !inrange(weeks_since_covid, `min', `max')
 
 // factor variable can't be negative
