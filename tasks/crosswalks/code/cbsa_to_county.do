@@ -11,6 +11,9 @@ lab val metro_micro metro_micro_lab
 
 rename (cbsacode cbsatitle fipsc county fipss statename) (cbsa cbsa_name cty cty_name state state_name)
 
+replace cty = (1000*state) + cty
+
+
 foreach var of varlist *name {
   replace `var' = ustrtrim(`var')
 }

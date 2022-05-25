@@ -1,10 +1,6 @@
 rm(list = ls())
 
-packages <- c(
-  "readr","dplyr",
-  "devtools",
-  "tidycensus","gdata", "collapse",
-)
+packages <- c("rgdal", "RCpp","foreign","dplyr","tidycensus","gdata", "collapse")
 
 # Create a directory for  packages
 dir.create(path = Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)

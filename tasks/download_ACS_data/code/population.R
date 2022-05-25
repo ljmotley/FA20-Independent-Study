@@ -1,8 +1,7 @@
 # libraries needed for tidycensus:
-# rgdal dplyr RCpp
-library(tidycensus)
 library(dplyr)
 library(foreign)
+library(tidycensus)
 census_api_key("c34c7f27552e3dede3099759c8a0f5ad0bbb3199")
 
 acs_pop <- get_acs(geography = "county",

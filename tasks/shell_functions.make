@@ -1,11 +1,12 @@
 FUNCTIONS = $(shell cat ../../shell_functions.sh)
-# STATA = @$(FUNCTIONS); stata_with_flag
+STATA = @$(FUNCTIONS); stata_with_flag
 R = @$(FUNCTIONS); R_pc_and_slurm
 
-STATA = stataic -e
+# STATA = stataic -e
+# STATA = stata-se -e
 
 #If 'make -n' option is invoked
 ifneq (,$(findstring n,$(MAKEFLAGS)))
-STATA := stataic
+# STATA := stataic
 R := R
 endif

@@ -40,11 +40,34 @@ replace dma_name = "TRI-CITIES, TN-VA" if dma_name == "TRI"
 replace dma_name = "WILKES BARRE" if dma_name == "WILKES"
 drop if dma_name == "US"
 
-merge 1:m state dma_name using `county_dma', nogen
+// THIS APPROACH WILL MISS COUNTIES IN NEIGHBORING STATES TO MAIN CITY IN DMA FOR THESE 21 DMAs
+bys dma_name: gen n = _N
+preserve
+keep if n > 1
+di _N
+merge 1:m dma_name state using `county_dma', assert(using match) keep(match) nogen
+tempfile non_unique_dma_name_matches
+save `non_unique_dma_name_matches'
+restore
+drop state
+
+keep if n == 1
+
+// still need to match these two manually
+drop if inlist(dma_name, "MYRTLE BEACH", "PALM SPRINGS")
+merge 1:m dma_name using `county_dma', assert(using match) keep(match) nogen
+append using `non_unique_dma_name_matches'
+drop n
 
 rename (dma_json_id state statefp cntyfp county) (dma state_abbr state cty cty_name)
 
 order dma dma_name state state_abbr cty cty_name
+
+replace cty = (1000*state) + cty
+
+merge m:1 cty using "../../download_ACS_data/output/ACS5yr2019_estimates.dta", keep(match) keepusing(cty_population) nogen
+bys dma: egen dma_population = sum(cty_population)
+gen dma_pop_share = cty_population / dma_pop
 
 compress
 

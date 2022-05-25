@@ -1,5 +1,5 @@
 SHELL=bash
-include ../shell_functions.make
+include ../../shell_functions.make
 
 all: $(foreach lang,stata R python,../output/$(lang)_packages.txt) #python
 
@@ -10,3 +10,5 @@ all: $(foreach lang,stata R python,../output/$(lang)_packages.txt) #python
 ../output/python_packages.txt: requirements.txt | ../output run.sbatch
 	pip3 install -r $<
 	echo "python packages installed" > $@
+
+include ../../generic.make
