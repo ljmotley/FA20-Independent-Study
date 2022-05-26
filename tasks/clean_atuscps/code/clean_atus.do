@@ -7,6 +7,7 @@ program define extract_data
   rm temp_atus`p'_2019.do
 end
 
+
 extract_data cps
 summarize
 extract_data cps
