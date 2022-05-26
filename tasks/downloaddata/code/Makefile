@@ -1,7 +1,7 @@
 SHELL=bash
 include ../../shell_functions.make
 
-OUTPUT = $(foreach stub, dma_merged_analysis_file.dta MSA_workfromhome.csv Zearn-County-Weekly.csv county_cbsa.csv, ../output/$(stub))
+OUTPUT = $(foreach stub, dma_merged_analysis_file.dta MSA_workfromhome.csv Zearn_County_Weekly.csv county_cbsa.csv, ../output/$(stub))
 
 all: $(OUTPUT)
 
@@ -11,15 +11,21 @@ all: $(OUTPUT)
 ../output/MSA_workfromhome.csv: | ../output
 	wget https://raw.githubusercontent.com/jdingel/DingelNeiman-workathome/master/MSA_measures/output/MSA_workfromhome.csv -O $@
 
-../output/dma_merged_analysis_file.dta: | ../output ../output/nber.zip
+../output/dma_merged_analysis_file.dta: ../output/nber.zip | ../output
 	unzip -p ../output/nber.zip dma_merged_analysis_file.dta >../output/dma_merged_analysis_file.dta
 
 ../output/county_cbsa.csv: | ../output
 	wget https://data.nber.org/cbsa-csa-fips-county-crosswalk/cbsa2fipsxw.csv -O $@
 
-.INTERMEDIATE: ../output/nber.zip
+../output/atus%_2019.dat: ../output/atus_%.zip | ../output
+	unzip -p ../output/atus_$*.zip atus$*_2019.dat >../output/atus$*_2019.dat
+../output/atus%_2019.do: ../output/atus_%.zip | ../output
+	unzip -p ../output/atus_$*.zip atus$*_2019.do >../output/atus$*_2019.do
 
+.INTERMEDIATE: ../output/nber.zip
 ../output/nber.zip: | ../output
 	wget https://data.nber.org/data-appendix/w27555/nber.zip -O $@
+../output/atus_%.zip: | ../output
+	wget https://www.bls.gov/tus/special.requests/atus$*-2019.zip -O $@
 
 include ../../generic.make
