@@ -36,10 +36,10 @@ stata_pc_and_slurm() {
         fi;
         print_info Stata $@;
 
-	if [[ "$USER" == "jgottlieb" || "$USER" == "noahsobel-lewin" ]] ; then
-		stata-mp -e $@;
+	if [[ "$USER" == "lukemotley" || "$USER" == "root" ]] ; then
+		stata-se -e $@;
 	else
-	        stata-se -e $@;
+	        stataic -e $@;
 	fi;
 	fi;
 } ;

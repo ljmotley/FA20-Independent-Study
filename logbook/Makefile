@@ -39,6 +39,10 @@ input/intensity_bh_replication_event_study_%.png: ../tasks/replicate_bacher_hick
 	ln -sf ../$< $@
 input/ses_bh_replication_event_study_%.png: ../tasks/replicate_bacher_hicks_etal/output/ses_bh_replication_event_study_%.png | input/
 	ln -sf ../$< $@
+input/%.tex: ../tasks/replicate_FA20_version/output/%.tex | input/
+	ln -sf ../$< $@
+input/event_study_%.png: ../tasks/replicate_FA20_version/output/event_study_%.png | input/
+	ln -sf ../$< $@
 
 input/:
 	mkdir $@

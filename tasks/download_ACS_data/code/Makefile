@@ -1,9 +1,9 @@
 SHELL=bash
 include ../../shell_functions.make
 
-all: ../output/ctypopulation_5yrACS2019.csv
+all: ../output/ACS5yr2019_estimates.dta
 
-../output/ctypopulation_5yrACS2019.csv: population.R | ../output
+../output/ACS5yr2019_estimates.dta: population.R | ../output
 	$(R) $<
 
 include ../../generic.make
