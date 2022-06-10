@@ -39,7 +39,7 @@ stata_pc_and_slurm() {
 	if [[ "$USER" == "lukemotley" || "$USER" == "root" ]] ; then
 		stata-se -e $@;
 	else
-	        stataic -e $@;
+	        stata-se -e $@;
 	fi;
 	fi;
 } ;

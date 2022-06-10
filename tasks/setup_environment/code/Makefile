@@ -3,7 +3,8 @@ include ../../shell_functions.make
 
 all: $(foreach lang,stata R python,../output/$(lang)_packages.txt) #python
 
-../output/stata_packages.txt: packages.do | ../output run.sbatch
+
+../output/stata_packages.txt: packages.do save_data/save_data.ado | ../output run.sbatch
 	$(STATA) $<
 ../output/R_packages.txt: packages.R | ../output run.sbatch
 	$(R) $<
@@ -11,4 +12,7 @@ all: $(foreach lang,stata R python,../output/$(lang)_packages.txt) #python
 	pip3 install -r $<
 	echo "python packages installed" > $@
 
-include ../../generic.make
+../input ../output slurmlogs:
+	mkdir $@
+run.sbatch: ../../setup_environment/code/run.sbatch | slurmlogs
+	ln -s $< $@
