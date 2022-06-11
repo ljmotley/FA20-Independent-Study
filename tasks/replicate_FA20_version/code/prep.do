@@ -2,7 +2,7 @@ local outcome "`1'"
 if inlist("`outcome'", "specific1", "generic"){
   local ytitle "Log search intensity"
   use dma week `outcome' using "../input/gtrends_outcomes_dma.dta" if dma != "US", clear
-  merge m:1 dma using "../input/gtrends_non_outcomes_dma.dta", keepusing(population hh_med_inc) keep(match) nogen
+//  merge m:1 dma using "../input/gtrends_non_outcomes_dma.dta", keepusing(population hh_med_inc) keep(match) nogen
   split dma, p(-)
   rename dma3 dmacode
   destring dmacode, replace

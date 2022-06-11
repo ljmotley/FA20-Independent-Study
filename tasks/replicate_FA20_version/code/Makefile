@@ -6,9 +6,9 @@ TABLES = $(addprefix  ../output/, $(foreach j, wks inc tele inctele N mtitles, $
 
 all: $(TABLES) $(COEFPLOTS)
 
-../output/event_study_%.png: event_studies.do | ../output
+../output/event_study_%.png: event_studies.do $(shell grep -o '../input/\w*.\w*' prep.do | grep -v 'zearn' | grep -v 'gtrends') | ../output 
 	$(STATA) $< $*
-../output/%.tex: table.do | ../output
+../output/%.tex: table.do $(shell grep -o '../input/\w*.\w*' prep.do) | ../output
 	$(STATA) $< $*
 
 ../input/zearn_outcomes.dta: ../../clean_zearn/output/zearn_outcomes.dta | ../input

@@ -23,9 +23,3 @@ if "`version'" == "N" local opts "drop(*) nomtitles"
 if "`version'" == "mtitles" local opts "drop(*) noobs"
 
 esttab r* using "../output/`version'.tex", replace label frag nolines nonumbers `opts'
-filefilter "../output/`version'.tex" "temp.tex", from(=1) to() replace
-filefilter "temp.tex" "../output/`version'.tex" , from([1em] ) to() replace
-filefilter "../output/`version'.tex" "temp.tex", from(specific1) to(School-Centered) replace
-filefilter "temp.tex" "../output/`version'.tex" , from(generic) to(Parent-Centered) replace
-filefilter "../output/`version'.tex" "temp.tex", from(badges) to(Badges) replace
-filefilter "temp.tex" "../output/`version'.tex" , from(engagement) to(Engagement) replace
