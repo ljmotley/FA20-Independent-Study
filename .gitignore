@@ -19,8 +19,10 @@ tasks/*/code/*.py.o*
 tasks/*/code/*.py.e*
 tasks/*/code/*.asv
 
+*.fls
+*.fdb_latexmk
 .DS_Store
-*.DS_Store
+*DS_Store
 *.aux
 *.log
 *.out
