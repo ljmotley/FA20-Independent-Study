@@ -40,3 +40,4 @@ run.sbatch
 grants/fontsize.sty
 grants/fontsize/*
 .Rproj.user
+*tasksflow*
