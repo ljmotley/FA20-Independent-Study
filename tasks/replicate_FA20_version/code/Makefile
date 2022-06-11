@@ -1,12 +1,12 @@
 SHELL=bash
 include ../../shell_functions.make
 
-COEFPLOTS = $(addprefix  ../output/, $(foreach y, specific1 generic engagement badges, $(foreach j, wks inc tele inctele, event_study_$(y)_$(j).png)))
+COEFPLOTS = $(addprefix  ../output/, $(foreach y, specific1 generic engagement badges, $(foreach j, wks inc tele inctele, event_study_$(y)_$(j).eps)))
 TABLES = $(addprefix  ../output/, $(foreach j, wks inc tele inctele N mtitles, $(j).tex))
 
 all: $(TABLES) $(COEFPLOTS)
 
-../output/event_study_%.png: event_studies.do $(shell grep -o '../input/\w*.\w*' prep.do | grep -v 'zearn' | grep -v 'gtrends') | ../output 
+../output/event_study_%.eps: event_studies.do $(shell grep -o '../input/\w*.\w*' prep.do | grep -v 'zearn' | grep -v 'gtrends') | ../output 
 	$(STATA) $< $*
 ../output/%.tex: table.do $(shell grep -o '../input/\w*.\w*' prep.do) | ../output
 	$(STATA) $< $*

@@ -35,13 +35,13 @@ scratch.pdf: scratch.tex $(scratchentries) $(img_scratch_inputs) $(tex_scratch_i
 #Input recipes
 input/bh_replication_event_study_table_%.tex: ../tasks/replicate_bacher_hicks_etal/output/bh_replication_event_study_table_%.tex | input/
 	ln -sf ../$< $@
-input/intensity_bh_replication_event_study_%.png: ../tasks/replicate_bacher_hicks_etal/output/intensity_bh_replication_event_study_%.png | input/
+input/intensity_bh_replication_event_study_%.eps: ../tasks/replicate_bacher_hicks_etal/output/intensity_bh_replication_event_study_%.eps | input/
 	ln -sf ../$< $@
-input/ses_bh_replication_event_study_%.png: ../tasks/replicate_bacher_hicks_etal/output/ses_bh_replication_event_study_%.png | input/
+input/ses_bh_replication_event_study_%.eps: ../tasks/replicate_bacher_hicks_etal/output/ses_bh_replication_event_study_%.eps | input/
 	ln -sf ../$< $@
 input/%.tex: ../tasks/replicate_FA20_version/output/%.tex | input/
 	ln -sf ../$< $@
-input/event_study_%.png: ../tasks/replicate_FA20_version/output/event_study_%.png | input/
+input/event_study_%.eps: ../tasks/replicate_FA20_version/output/event_study_%.eps | input/
 	ln -sf ../$< $@
 
 input/:

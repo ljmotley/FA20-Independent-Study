@@ -79,4 +79,4 @@ if "`version'" == "intensity" local ylabel "ylabel(-0.3(0.3)1.2)"
 coefplot matrix(y), at(x) se(se) xlabel(-25(5)10) `ylabel' ///
 ytitle(`ytitle') xtitle("Weeks since 3/1/2020") ///
 xline(0) yline(0) scheme(lean1)
-graph export "../output/`version'_bh_replication_event_study_`1'.png", replace
+graph export "../output/`version'_bh_replication_event_study_`1'.eps", replace

@@ -89,4 +89,4 @@ coefplot `plot', ///
 `ylabel' `opts' vertical ///
 ytitle(`ytitle') xtitle("Weeks since 3/1/2020") ///
 xline(0) yline(0) yaxis(1) `legend'
-graph export "../output/event_study_`outcome'_`version'.png", replace
+graph export "../output/event_study_`outcome'_`version'.eps", replace
