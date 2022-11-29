@@ -1,0 +1,64 @@
+\section{Introduction} \label{sec:introduction}
+In early March 2020, COVID-19 abruptly interrupted the daily routines of both children and adults.
+From March 16-March 24, every state ordered or recommended school closures and
+all except Montana and Wyoming ultimately extended the guideline to the end of the
+year.\footnote{School closure information from Education Week.}
+Early studies suggest that the shift to remote learning during COVID-19 will disproportionately impact low-income students,
+an effect that has also been observed during previous school closures
+\citep{vonHippel, horowitz, jaeger, malkus}.
+Unlike in past closures, however, COVID-19 caused workers across the country to begin working from home
+at the same time that schools sent children home.
+During the first week of April, over one-third of workers reported having shifted
+to remote work in response to the crisis \citep{bynjolfsson}.
+This paper examines how these two responses interacted, showing that parents
+ability to work from home impacted educational outcomes at the onset of the pandemic.
+
+The known connections between income, teleworkability, and student achievement motivate this investigation.\footnote{Throughout the paper, I refer to \textit{teleworkability} as the capability for a job to be done at home.}
+First, higher-wage jobs are more teleworkable
+\citep{bartik, dingel}.
+Thus, at the time of the school closures, higher relative household income
+correlates with both a higher likelihood of the worker shifting to remote work and a lower severity of negative educational outcomes for the student.
+Moreover, \cite{bettinger} provide evidence that stay-at-home parenting has a positive impact on achievement of their students,
+and \cite{sonnemann} document that low-socioeconomic status (SES) students are less likely to have parent assistance and support with school.
+Together, these facts suggests that parents’ working remotely may have a causal impact on the educational outcomes of students through at-home parent support.
+While this mechanism would be fascinating to explore with richer, individual-level data,
+this paper simply suggests at this connection through regional-level analyses.
+
+Specifically, I use the \cite{dingel} classification of feasibility of working at home to explore the impact of teleworkability on COVID-induced educational inequalities in two datasets.
+The first is Google Trends search data.
+\cite{bh1} show that high-income areas exhibited significantly larger
+increases in the seeking of online resources after COVID as measured by Google searches.
+They also group the words as ``parent-centered'' and ``school-centered'' to indicate who likely made the search.
+We pair this proxy for parent engagement with a direct measure of child behavior.
+\cite{chetty} demonstrate that high-income areas also showed substantially smaller decreases in participation and achievement on the online math platform Zearn.\footnote{The geographical patterns of these inequalities fit with the equivalent patterns for income and teleworkability, further motivating the study (see Figure \ref{fig:map}).}
+
+Every analysis in the paper uses these four outcomes (with the measure in parentheses): engagement in the child's online learning (Google Trends search interest for school-centered resources), parent engagement in the child's online learning (Google Trends search interest for parent-centered resources), student engagement in online learning (Zearn engagement), and student achievement in online learning (Zearn badges).
+At the regional level, these measures are aggregates.
+Therefore, Google search interest is an aggregate measure of effort to supplement or replace school with online resources, and the Zearn statistics are aggregate estimates of the actual use and achievement of students on online learning platforms, respectively.
+
+Using a difference-in-differences design, I find that high-income areas saw a significant relative increase in each educational outcome after the pandemic for the remainder of the 2020 school year.\footnote{For a one standard deviation increase in income, the model only including income predicts roughly a NUMBER\% increase in search intensity for school-centered resources, a NUMBER\% increase in search intensity in parent-centered resources, a NUMBER\% in likelihood of using Zearn, and a NUMBER\% increase in lessons completed on Zearn}
+However, the inequality associated with an increase in income diminishes after including controls for teleworkability.
+In fact, a standard deviation increase in the percentage of teleworkable jobs has a comparable or larger effect on the outcome measures as a standard deviation increase in median household income.\footnote{See Table \ref{table:fullreg} for full results}.
+
+I also examine a weekly event study of these results.
+There is no evidence of pre-trends.
+Additionally, the importance of teleworkability for Google search interest spikes in early March, while and the Zearn lag behind by two to three weeks.
+This discrepancy is likely due to the fact that schools did not immediately start ``distance learning''.
+Thus, the gap reflects the time that parents and schools searched for resources while students had time off due to the closure.
+Observing the long-term patterns of this event study for the Zearn outcomes reveals that a jump in the importance of teleworkability occurs at the beginning of the summer of 2019.
+This seasonality makes sense.
+It is natural that parents who work from home have a larger impact on their child's online learning engagement and achievement during the summer, when their child is also at home.
+The pandemic shifted this seasonal pattern into early March in 2020, and the teleworkability coefficients increased to a much lesser degree at the start of the summer in 2020.
+
+Overall, this paper demonstrates that teleworkability is a potential mechanism driving the observed inequalities at the onset of the COVID-19 pandemic.
+It finds the effects to be most convincing for measures of actual student engagement and the seeking of specific, school-related resources rather than general, parent-related resources.
+While better identification is necessary to be confident about the causal effect of teleworkability on online learning, these results motivate further work with richer, individual level data.
+By better understanding the mechanisms that create inequalities, we can craft reactive policies in the present and respond more proactively to similar shocks in the future.
+If teleworkability plays a crucial causal role in online-learning educational inequalities, we would expect purely monetary relief to be less successful at addressing these gaps.
+Instead, children would need direct educational assistance.
+
+Moreover, this work suggests that idiosyncratic features of a labor market shock may cause unexpected unanticipated disparities to emerge.
+In this case, social distancing may have led workers who cannot work from home to be disadvantaged.
+More research should be done to identify the groups that are most susceptible to unpredictable negative side effects of these shocks due to variation in adaptability.
+I posit that---like with teleworkability during a pandemic---the correlations will play out such that the most susceptible will be among the least privileged.
+

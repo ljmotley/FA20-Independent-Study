@@ -1,0 +1,59 @@
+\section{Background}
+\cite{bh1} demonstrate that the COVID-19 pandemic will likely widen educational gaps along socioeconomic dimensions.
+Using Google Trends search intensity data, they identify two distinct types of searches for online-learning resources: school-centered searches (for specific programs, e.g., Google Classroom) and parent-centered searches (for a general resource, e.g., online school).
+The separation indicates which group more often performed and benefited from the search.
+School-centered resources exhibit significantly higher search intensity, and the difference is due to a few of highly-searched terms.\footnote{Pre-COVID, the top term, “Google Classroom,” is searched with three times the intensity of the second term, “Kahoot,” which is searched with double the intensity of the third time “Khan Academy” \cite{bh1}.
+After this point, the search intensities between school-centered and parent-centered terms are comparable.
+Post-COVID the difference in search intensity between the two categories at the top of the search distribution widens even more.}
+There is a sharp increase in search intensity for both types of searches at the onset of the COVID, and the average increase in search intensity in areas with above-median socioeconomic status (SES) is double the average increase in areas with below-median SES.
+Google Trends can predict present economic activity, suggesting that this pattern indicates real differences between SES groups in school and parent adjustment to online learning. \citep{choi}.
+
+Student behavior also differed by income group in response to the pandemic.
+The change in Zearn math lessons completed falls starkly at the onset of COVID-19, and, when broken into income quartiles, the magnitude of the drop-off decreases monotonically as income increases.
+The distributions of key demographics of students (income, education, and race) are similar in the Zearn dataset and the U.S. as a whole, which suggests that the data is representative.
+The difference between the top-quartile and the middle-quartiles is more than double the difference between the middle-quartiles and bottom-quartile, so the advantage of being in the top group is particularly pronounced \citep{chetty}.
+
+Evidence from the Trends data and the Zearn data reveals an indisputable relationship between SES and changes in educational patterns due to the pandemic.
+However, the causal relationships between student behavior, the searching for resources, and endogenous characteristics that impact both (such as income) are not obvious.
+This paper investigates the relationship between measures of actual student behavior and the seeking of resources by schools and parents in more detail.
+It also introduces and tests a mechanism for the changes in these outcomes due to COVID: differences in the capability to work from home.
+
+\cite{dingel} classify the feasibility of working at home (teleworkability) for a comprehensive class of occupations using surveys and occupation descriptors obtained from the O*NET database, a U.S. Department of Labor sponsored project.
+They find that teleworkable jobs pay more than jobs that are not teleworkable.
+Similarly, GDP positively correlates with teleworkability.
+Related work demonstrates the power of the Dingel and Neiman teleworkability measure.
+Their measure estimates that 37 percent of U.S. jobs could be done from home; 35 percent of U.S. workers worked entirely from home in May 2020 \citep{blandin}.
+There was a high correlation between the industries high in the Dingel and Neiman teleworkability measure and the actual industries that shifted to remote work due to COVID.
+Using survey data, \cite{bartik} confirmed the measure’s accuracy in predicting the industries that moved to remote work.
+Further, the responses they received suggest that work will never return to its pre-COVID state in some sectors.
+Roughly forty percent of firms anticipate that at least forty percent of their workers will continue engaging in remote work after the crisis.
+
+These findings show that remote work originating with the pandemic is widespread, will persist in some capacity indefinitely, and is inequitable between the same demographics as the changes in online education behavior due to the pandemic, most notably favoring high SES, urban areas.
+There are several plausible explanations for the connection: one, underlying demographic variables cause a separate variable explaining both inequities; two, areas with high teleworkability cause the change in behavior related to online education and correlate with the demographics; three, both demographic variables and teleworkability cause the change in behavior to some extent.
+The second explanation is intuitively plausible.
+If there is a high-density of teleworkable jobs in an area, parents and teachers may be more likely to assist their children with homework and spend time searching for online learning resources.
+Conversely, it is not conceivable that behavior related to online schooling has a causal effect on the capability to work from home.
+
+Identifying the correct explanation is necessary when crafting responsive education policy due to the persistence of teleworkability after COVID.
+Suppose teleworkability is the driving mechanism for the disparities observed.
+In that case, we expect one-time relief efforts to be ineffective, given that the results were due to an abrupt, permanent change in lifestyle that will likely remain.
+Concretely, it would imply that parents and schools can indefinitely pay more attention to their children and students’ education when working from home.
+One caveat is that students will be sent back to school eventually,
+and the interaction between student and parent likely contributes to this effect.
+Regardless, the argument still holds directionally because the parent effect is almost certainly positive.
+Since differences in teleworkability did not exist before COVID and will remain afterward, the educational gaps could last even when schools return to traditional instruction.
+Conversely, if factors such as income are the driving force, a single effort to correct the inequality makes sense.
+There is less reason to expect that the behavior changes observed in parents, students, and schools to be perpetual, so there is no need for a long-term solution.
+
+It is crucial to continue to investigate the issue in real-time.
+COVID-19 could prove to be a poor representation of the post-COVID world.
+Recognizing this fact complicates the discrete explanations presented above.
+For example, teleworkability could have been the essential variable in determining the initial educational response to the shock of the pandemic since there was not enough time for purchasable solutions to arise.
+Then, as people adapt and innovative educational products and services emerge, income becomes more significant.
+\cite{bh2} express their concerns about the potential for mistakes such as this vividly.
+Specifically, they outline the challenge in estimating the impact of any particular educational policy response to COVID.
+They preemptively cast doubt on any be all, end all research that describes and solves the pandemic’s education-related problems and raise the bar for work that seeks to contribute the solution.
+
+The ever-shifting nature of the problem gives power to high-frequency data from platforms that I use in this project.
+I return to \citep{bh1} and \citep{chetty} with new mechanisms and incorporate real-time data into ongoing current analysis frameworks.
+Specifically, I relate three different data sources that are crucial to explaining the events at the onset of COVID and the trajectory moving forward: the Dingel and Neiman teleworkability measure, Zearn Data, and Google Trends Data.

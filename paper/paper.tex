@@ -1,7 +1,9 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
+\usepackage{bbm}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{graphicx}
+\usepackage{subcaption}
 \usepackage[onehalfspacing]{setspace}
 \usepackage[unicode=true,
  bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
@@ -10,6 +12,7 @@
 \usepackage{verbatim}
 \usepackage{appendix}
 \usepackage{mathtools}
+\usepackage{threeparttable}
 \usepackage{url}
 \usepackage[authoryear]{natbib}
 \usepackage{tikz}
@@ -17,6 +20,7 @@
 \usepackage{placeins} %Package with \FloatBarrier command
 \usepackage{physics}
 \usepackage[en-US]{datetime2}
+\newcommand{\sym}[1]{\rlap{#1}}
 
 \hypersetup{
 	pdftex,
@@ -39,7 +43,7 @@
 
 
 \begin{document}
-\bibliographystyle{../bib/aeanobold}
+\bibliographystyle{../bib/aeanobold-oxford}
 
 % -----------------------------------------------
 % 	ABSTRACT
@@ -51,7 +55,7 @@
 \vspace{1cm}
 {\small
 \noindent \textit{Keywords}:  \\
-\textit{JEL codes}: 
+\textit{JEL codes}:
 }
 \thispagestyle{empty}
 \newpage
@@ -61,10 +65,16 @@
 % 	BODY
 % -----------------------------------------------
 
-%\input{./sections/intro.tex}
-%\input{./sections/theory.tex}
-%\input{./sections/estimation.tex}
-%\input{./sections/discussion.tex}
+\input{./sections/intro.tex}
+\input{./sections/background.tex}
+\section{Data \& Methodology}
+\input{./sections/data.tex}
+\input{./sections/methodology.tex}
+\input{./sections/results.tex}
+\input{./sections/discussion.tex}
+\input{./sections/conclusion.tex}
+
+
 
 % -----------------------------------------------
 % 	REFERENCES
@@ -73,6 +83,8 @@
 \bibliography{../bib/bib.bib}{}
 
 \newpage
+\clearpage
+\input{./sections/exhibits.tex}
 \clearpage
 
 \begin{center} \Large \textbf{Appendix -- For Online Publication} \end{center}

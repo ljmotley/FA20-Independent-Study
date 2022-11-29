@@ -1,0 +1,40 @@
+\subsection{Methodology}
+I use county-level difference-in-differences regressions to estimate how the relative effect of income and teleworkability on the educational outcome measures changed due to the COVID-19 pandemic.
+I first interact the variables with a time dummy variable that either indicates whether the observation was after March 1, 2020 ($\mathbbm{1}_C$)
+Then, I perform a weekly event study of these regressions, where $t$ is the absolute week.
+I analyze the coefficients of interest in weeks relative to March 1, 2020 ($j$), and $j=0$ is excluded from the regressions.
+The model specifications are as follows: \par
+
+\begin{align} \label{incalone}
+    \ln Y &=  \alpha + \gamma \mathbbm{1}_{C} + \zeta w  + \gamma [\mathbbm{1}_C\times w] + \mu_{k\left(t\right)}+\lambda_{y\left(t\right)}+ X + \epsilon  \\
+\end{align}
+
+\begin{align} \label{inctele}
+\ln Y &=  \alpha + \gamma \mathbbm{1}_{C} + \zeta w + \eta r  + \gamma[\mathbbm{1}_{C}\times w]
++ \lambda[\mathbbm{1}_{C}\times r] +\mu_{w\left(t\right)}+\lambda_{y\left(t\right)}+ X + \epsilon
+\end{align}
+
+\begin{align} \label{week}
+\ln Y_t &=  \alpha +\sum_{j\neq0}^{n}\beta_j j +\mu_{k(t)}+\lambda_{y(t)}+ X + \epsilon
+\end{align}
+
+\begin{align} \label{incaloneweek}
+    \ln Y_t &=  \alpha + \gamma w + \sum_{j\neq0}^{n}\gamma_j \mathbbm{1}_j w +\mu_{k(t)}+\lambda_{y(t)}+X+\epsilon_t
+\end{align}
+
+\begin{align} \label{incteleweek}
+    \ln Y_t &=  \alpha + \gamma w + \eta r \sum_{j\neq0}^{n}[\gamma_j \mathbbm{1}_j w + \mathbbm{1}_j r] +\mu_{k(t)}+\lambda_{y(t)}+X+\epsilon_t
+\end{align}
+
+For each regression, the outcome measure ($Y$) is either a Google Trends search interest or a Zearn platform usage statistic.
+$\mu_{k(t)}$ and $\lambda_{y(t)}$ are school week (1-52) and school year (2016-2021) fixed effects, respectively.\footnote{The school year begins in June. The years included depends on the outcome variable and specific regression. Only the full Zearn time trend regression (Figures \ref{fig:engagement_time_all} and \ref{fig:badges_time_all}) include 2021.}
+Log median household income ($w$) and log teleworkability percentage ($r$) are standardized.
+Since the Zearn outcomes contain negative values and the specifications take the logarithm of the outcome variable to be the dependent variable, I first transform them with the operation $Y_{new}=Y_{old}+1+(-1\ast\min{Y_{old}})$.
+Combined, these transformations allow us to roughly interpret the coefficients on the interaction terms as the percent increase in the outcome measure associated with a one standard deviation increase in the independent variable in the specified time period relative to March 1, 2020.
+For example, if the outcome measure is Zearn engagement, the coefficient of the $\gamma_1\times r$ term in specification \refeq{incomealone} is approximately the difference in expected percentage change in Zearn engagement when median household income increases by one standard deviation for the week of March 8, 2020 relative to the expected change in Zearn engagement during the week of March 1, 2020.
+\par
+Specification \ref{incalone} reveals the impact that income has on our outcome measures changed after COVID.
+By comparing the income coefficient from specification \ref{incalone} with the income coefficient in specification \ref{inctele}, we observe how the effect changes from the addition of teleworkability controls.
+The percentage decrease in the coefficient, $\frac{\beta_{inc\left(2\right)}-\beta_{inc\left(4\right)}}{\beta_{inc\left(2\right)}}$, serves as an estimate of the percent of the income gap that is explained by teleworkability. Specifications \ref{week}, \ref{incaloneweek}, and \ref{incteleweek} allow us to observe how the impacts changed week by week.  \par
+Standard errors are clustered by the original geographic-level of the dependent variable, which means by county if the regression has a Zearn outcome and by DMA if it has a Google Trends outcome.
+Since we are interested in effects on the individual, I weight all regressions by county population.
