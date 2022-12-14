@@ -20,17 +20,15 @@ assert(`r(N)' == 0)
 gen break = [exists_break_engagement | exists_break_engagement]
 
 replace badges = max(badges, break_badges)
-replace engagement = max(badges, break_engagement)
+replace engagement = max(engagement, break_engagement)
 
 keep cty week engagement badges imputed_from_cz break
 order cty week engagement badges imputed_from_cz break
 
 lab var week "END OF WEEK DAY"
 
-gsort cty week
-
 compress
 
 lab data "Zearn learning outcome variables"
 
-save "../output/zearn_outcomes.dta"
+save_data "../output/zearn_outcomes.dta", key(cty week) replace

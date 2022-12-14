@@ -1,28 +1,31 @@
 program save_data
     version 11
-    syntax anything(name=filename) [if], key(varlist) [outsheet log_replace log(str) missok* nopreserve]
+    syntax anything(name=filename) [if], key(varlist) [outsheet log_replace log(str) missok* nopreserve logonly]
     if "`preserve'"!="nopreserve" {
         preserve
     }
-    
+
     if "`if'"!="" {
         keep `if'
     }
     isid `key', sort `missok'
     order `key', first
     compress
-    
-    local default = "data_file_manifest.log"
+
     * Define default log value
     if "`log'"=="" {
-        define_default_log_file log, filename(`filename') default(`default')
-    }    
-    
+        local filenamestripped = subinstr(`"`filename'"',char(34),"",.)
+        if strpos("`filenamestripped'", "../output") local log = "../report/" + subinstr("`filenamestripped'","../output/","",1) + ".log"
+        if strpos("`filenamestripped'", "../temp") local log = "../report/" + subinstr("`filenamestripped'","../temp/","",1) + ".log"
+    }
+
+    if "`logonly'"=="" { //The logonly option skips saving
     if "`outsheet'"!="" {
         outsheet using `filename', `options'
     }
     else {
         save `filename', `options'
+    }
     }
 
     if "`log_replace'"!="" {
@@ -35,30 +38,16 @@ program save_data
     //Remove date that 'describe' command prints in logfile
     shell sed -i.bak 's/[0-3]*[0-9] [JFMASOND][aceopu][bcglnprtvy] 202[2-9] [0-2][0-9]:[0-5][0-9]//' `log'
     rm `log'.bak
-    
+
     if "`preserve'"!="nopreserve" {
         restore
     }
 end
 
-program define_default_log_file
-    syntax anything(name=local), filename(string) default(string)
-    if regexm("`filename'", "(\/output\/)(.+\/)") == 1 {
-        local newdir = regexs(1) + regexs(2) + "`default'"
-        c_local `local' "../`newdir'"
-    } 
-    else if regexm("`filename'", "(\/output\/)") == 1 {
-        local newdir = regexs(1) + "`default'"
-        c_local `local' "../`newdir'"
-    }
-    else {
-        c_local `local' "none"
-    }
-end
-
 program print_info_to_log
     syntax using/, filename(str) key(varlist) [nolog overwrite]
-    
+    set linesize 100 //arbitrary selection
+
     if "`using'"~="none" {
         if "`overwrite'"!=""{
             qui log using `using', text replace name(save_data_log)
@@ -68,17 +57,17 @@ program print_info_to_log
         }
     }
     di "=================================================================================================="
-    if regexm("`filename'", "\.") == 0 {    
+    if regexm("`filename'", "\.") == 0 {
         di "File: `filename'.dta"
     }
     else {
         di "File: `filename'"
-    }    
+    }
     di "Key: `key'"
     di "=================================================================================================="
     datasignature
     desc
     sum
     di ""
-    cap log close save_data_log 
+    cap log close save_data_log
 end

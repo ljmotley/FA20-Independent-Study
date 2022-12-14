@@ -39,9 +39,11 @@ missok: Allows missing values of key variables.
 
 nopreserve: Skips preserve and restore commands (faster).
 
+logonly: Produces the log without saving.
+
 save_data takes all valid options for Stata's native save command
     (when the outsheet option is not specified) or for Stata's outsheet
-    command (when the outsheed option is specified).    
+    command (when the outsheet option is specified).    
 
 Examples
 -----------------------------------------------------------------------

@@ -41,3 +41,4 @@ grants/fontsize.sty
 grants/fontsize/*
 .Rproj.user
 *tasksflow*
+tasks/download_ACS_data/raw_output/raw_ACS_1_year_sample_2003_2020.dta

@@ -1,9 +1,9 @@
 \begin{table}[htbp] \centering
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-\caption{Changes in Search Intensity by Socioeconomic Status and Other Measures}
-\scalebox{0.7}{
+\caption{\cite{bh1} Replication: Changes in Search Intensity}
+\scalebox{0.8}{
 \begin{tabular*}{1\textwidth}{@{\extracolsep{\fill}}l*{4}{c}}
-\midrule
+\toprule
 &School-       &Parent-        &                       &               \\
 &centered      &centered       &Google         &Khan   \\
 &resources     &resources      &Classroom      &Academy\\
@@ -26,23 +26,26 @@ Post COVID $\times$ High-SES&        0.39\sym{***}&        0.24\sym{***}&       
 \cmidrule{1-1}
 (C) By income, online access, race\\
 \cmidrule{1-1}
-Post COVID $\times$ household mean income&        0.14\sym{***}&        0.08\sym{***}&        0.12\sym{***}&        0.07\sym{***}\\
+Post COVID $\times$ HH mean income&        0.14\sym{***}&        0.08\sym{***}&        0.12\sym{***}&        0.07\sym{***}\\
                     &      (0.04)         &      (0.01)         &      (0.03)         &      (0.02)         \\
                     &                     &                     &                     &                     \\
-Post COVID $\times$ \% of households with broadband&        0.36\sym{***}&        0.30\sym{***}&        0.31\sym{***}&        0.27\sym{***}\\
+Post COVID $\times$ \% of HH w/ broadband&        0.36\sym{***}&        0.30\sym{***}&        0.31\sym{***}&        0.27\sym{***}\\
                     &      (0.08)         &      (0.03)         &      (0.09)         &      (0.04)         \\
                     &                     &                     &                     &                     \\
-Post COVID $\times$ \% of households with a computer&        0.44\sym{***}&        0.41\sym{***}&        0.41\sym{***}&        0.33\sym{***}\\
+Post COVID $\times$ \% of HH w/ computer&        0.44\sym{***}&        0.41\sym{***}&        0.41\sym{***}&        0.33\sym{***}\\
                     &      (0.10)         &      (0.04)         &      (0.10)         &      (0.07)         \\
                     &                     &                     &                     &                     \\
 Post COVID $\times$ \% of schools in rural area&       -0.16\sym{***}&       -0.08\sym{***}&       -0.18\sym{***}&       -0.09\sym{***}\\
                     &      (0.03)         &      (0.01)         &      (0.03)         &      (0.02)         \\
                     &                     &                     &                     &                     \\
-Post COVID $\times$ \% of students black&       -0.09\sym{***}&       -0.06\sym{***}&       -0.03         &       -0.06\sym{***}\\
+Post COVID $\times$ \% of students Black&       -0.09\sym{***}&       -0.06\sym{***}&       -0.03         &       -0.06\sym{***}\\
                     &      (0.03)         &      (0.01)         &      (0.04)         &      (0.02)         \\
                     &                     &                     &                     &                     \\
-\hline
+\midrule
 & 50400 & 50400 & 50400 & 50400
 \end{tabular*}
 }
+\begin{minipage}{\textwidth}
+\footnotesize    \textit{Note:} This replicates DMA-level regressions from \cite{bh1}. The outcomes are in log Google Trends search interest, where (1) and (2) are groupings of terms and (3) and (4) are specific terms. Post-COVID is after March 1, 2020. Panel (A) reveals that COVID-19 is a shock to search interest for resources. Panel (B) shows the results is a difference in differences regression on high-low SES, defined by the median. Panel (C) regresses on each of the individual factors that contribute to SES.
+\end{minipage}
 \end{table}
