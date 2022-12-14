@@ -1,0 +1,45 @@
+\section{Measuring educational outcomes and the ability to work from home}
+\if\tenpg1
+{\small
+    \textit{Note: This section has been abridged to meet the page requirements. Link to full paper on the first page.}
+}
+\fi
+
+\if\tenpg0
+Weekly Google Trends data by Designated Market Area (DMA), the finest comprehensive level available for the U.S., provides an estimate of the relative demand for and use of online schooling resources by determining the “search interest” of related terms.
+Search interest is the rate at which a specific keyword or group of keywords is searched relative to total searches in an area.
+In our dataset, it is specifically the proportion of searches in an area for the specified keyword(s), normalized across time and region so that the DMA-week observation with the highest proportion is assigned a search interest of 100.
+Overall Google search volume did not significantly change at the onset of the pandemic, so an increase in relative search interest across time can be interpreted as an increase in raw searches \citep{bh1}.
+\par
+The search interest observations in the dataset come from the \cite{bh1}, which I recreated.
+School-centered keywords are for branded learning resources (e.g., “Google Classroom”, “Khan Academy”, “Kahoot”).
+Most often, schools facilitate the use of these platforms.
+Parent-centered keywords are for general learning resources (e.g., “online school”, “math game”, “home school”) and do not directly involve the school.
+We cannot distinguish between parents and guardians, teachers, administrators, or students performing the searches.
+Rather, the categorization indicates whether a given search is likely to be motivated by the school.
+The average search interest for school-centered resources is substantially higher than search interest for parent-centered resources. The outcome measure for school-centered or parent-centered resources refers to the combined search interest for the ten most-searched terms in the category.\footnote{By selecting the top-ten, \cite{bh1} avoided several issues associated with gathering Google Trends data while capturing the majority of demand for the category.} When data is missing, it is due to search-interest being too low.
+In my main analysis, I include these areas in by replacing their search interest with 1 (the minimum possible search interest), but I explore other approaches.
+\par
+\fi
+
+	Zearn is a non-profit that provides online math lessons to supplement in-person instruction.
+        Zearn “engagement” and “badges” measure student participation and achievement on online learning platforms.
+        Engagement measures of the number of students using Zearn and badges measure the number of lessons completed by students.
+        The observations are weekly, aggregated to the county level, and normalized relative to the base period of January 6-February 7, 2020.
+        The raw data is obtained from the publicly available Opportunity Insights Economic Tracker.
+        Roughly 925,000 U.S. students in 1600 counties used Zearn in Spring 2020, and comparison with the American Community Survey reveals the group to be representative of K-12 students in the U.S. as a whole along income, education, and race and ethnicity \citep{chetty}.
+        \par
+I attain an estimate for the percentage of teleworkable jobs in a Metropolitan Statistical Area (MSA) using the Dingel and Neiman measure of suitability for work from home.
+To create the measure, they use descriptions from the O*NET database on a comprehensive set of 1,000 occupations to answer pre-existing surveys about work conditions.
+From the answers, they classify the extent to which a job can be done at home, or its teleworkability, on a scale from 0 to 1.
+Using BLS estimates by MSA, I recreated the Dingel and Neiman dataset by weighting employment per occupation in an MSA by the occupation’s teleworkability and dividing by the total employment.
+The \cite{dingel} measure has been shown to have power in predicting the U.S. jobs that switched to remote in response to the COVID-19 pandemic \citep{blandin, bartik}.
+Roughly 86\% of the US population lives within an MSA.\footnote{From 2019 ACS estimates.} The results may not generalize to the remaining portion of the country due to differences in the response to COVID between urban and rural areas. Further work must untangle these regional differences.
+
+\if\tenpg0
+All other county-level variables and controls (e.g., median household income, broadband internet share) are 2019 American Community Survey 5-year sample estimates.
+I crosswalk the Google Trends data to the county level using DMA to county information from Nielsen.\footnote{The crosswalk was organized by Gaurav Sood (2016) and is available on the Harvard Dataverse.} Similarly, I move the teleworkability scores to the county level using the publicly available NBER crosswalk.
+These operations assume the respective measures to be uniform across counties within a DMA or MSA.
+In principle, the assumption is false.
+However, the statistics in the larger geographical areas are a logical estimate of the county-level statistics, and I cluster standard errors to reflect this aspect of the design.
+\fi

@@ -1,0 +1,215 @@
+\section{What factor is more important: teleworkability or income?} \label{sec:result}
+\if\tenpg1
+{\small
+    \textit{Note: This section has been abridged to meet the page requirements. Link to full paper on the first page.}
+}
+\fi
+The results strongly suggest that the change in the effect of teleworkability on
+educational outcomes after COVID-19 was positive.\footnote{All results shown use the \cite{dingel} measure of percentage of feasibly teleworkable jobs, but the results hold when constructing a work from home score using \cite{mongey}. See Figure \ref{fig:scatter_wfh} displaying their relationship and the \cite{mongey} results in online appendix.}
+They also support the hypothesis that this impact partly explains the educational income inequalities
+observed by \cite{bh1} and \cite{chetty}.
+
+First, we note that COVID-19 was a shock to the educational outcomes and that
+the descriptive trends suggest that the highest-income households
+fared relatively better in the aftermath (Figure \ref{fig:timetrend}).
+\begin{figure}[hbt!]
+    \caption{}
+    \label{fig:timetrend}
+    \begin{subfigure}[t]{0.49\textwidth}
+  \caption{COVID-19 is a positive shock to Google Trends search interest for educational resources}
+    \centering
+    \includegraphics[width=\linewidth]{input/timetrend_gtrends.eps}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[t]{0.49\textwidth}
+  \caption{Student online-learning achievement only increased in high-income counties after COVID-19}
+    \centering
+    \includegraphics[width=\linewidth]{input/timetrend_badges.eps}
+    \end{subfigure}
+    \begin{minipage}{\textwidth}
+        \footnotesize
+        \textit{Note:} Panel A plots the mean county-level Google Trends search interest for
+        parent-centered and school-centered terms weighted by population.
+        Panel B shows the trend in Zearn achievement (measured in standardized ``badges''),
+        split by quintile, with the middle three quintiles grouped.
+        Both panels drop the weeks containing Thanksgiving, Christmas, and New Years,
+        as they are outliers.
+    \end{minipage}
+\end{figure}
+The results from event study \refeq{incteleweek} are in Figure \ref{fig:eventstudy}.
+They show that the increase in relative importance of teleworkability on educational outcomes was larger than the increase in importance of income.
+The full results of regressions \refeq{incalone} and \refeq{inctele} are in Table \ref{tab:inctele}.\footnote{Note that using specification \ref{incalone} with the Google Trends outcomes replicates the results of \cite{bh1}. See online appendix for these replications.}
+These reveal that the growth in inequality in educational outcomes by income drops dramatically when teleworkability controls are included.
+I estimate that more than 20\% of the relative increase in search interest for resources and up to 50\% of the increase in student engagement and achievement on Zearn that is attributed to income can be explained by teleworkability.
+
+\begin{figure}[hbt!]
+  \caption{High-teleworkability regions experienced a relative gain in educational outcomes related to both student and parent behavior, even when controlling for income}
+  \label{fig:eventstudy}
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+    \caption{Parent-centered resources}
+        \centering
+        \includegraphics[width=\linewidth]{input/eventstudyplot_generic_inctele.eps}
+    \end{subfigure}%
+    ~
+    \begin{subfigure}[t]{0.49\textwidth}
+    \caption{Student achievement}
+        \centering
+        \includegraphics[width=\linewidth]{input/eventstudyplot_badges_inctele.eps}
+    \end{subfigure}
+
+    \begin{minipage}{\textwidth}
+        {\footnotesize
+        \textit{Note}: This figure displays the $\gamma$ and $\lambda$ coefficients from the county-level regression specified by equation \refeq{incteleweek}.
+        They are plotted by the relative week since March 1, 2020, $j$.
+        Teleworkability \citep{dingel} and median houeshold income (2019 ACS estimates) are log variables.
+        Panel (A) is an event study displaying the relative predicted impact of one percent increase in income and teleworkability on log search interest for parent-centered resources compared to March 1.
+        Panel (B) is an event study displaying the relative predicted impact of one percent increase in income and teleworkability on standardized Zearn badges compared to March 1.
+        The intervals are 95\% confidence intervals,
+        which are determined using standard errors clustered by state.
+        Note that the slight concern of pre-trends in Panel (B) is dispelled by the long-term patterns in Figure \ref{fig:badges_seasonal}.
+        See figure \ref{fig:eventstudy2} for equivalent results for search interest for school-centered resources and
+        student engagement on Zearn.
+        }
+  \end{minipage}
+\end{figure}
+
+\begin{table}[hbtp!]
+    \caption{Teleworkability is a factor in the COVID-induced income inequalities in educational outcomes}
+    \label{tab:inctele}
+  \centering
+  \scalebox{0.85}{
+  \begin{tabular}{l c c c c c}
+    \toprule
+    \input{input/eventstudytable_mtitles.tex} \\
+    \midrule
+    (A) Post-COVID \\
+    \midrule
+    \input{input/eventstudytable_wks.tex} \\
+    \midrule
+    (B) Income Alone \\
+    \midrule
+    \input{input/eventstudytable_inc.tex} \\
+    \midrule
+    (C) Teleworkability Alone \\
+    \midrule
+    \input{input/eventstudytable_tele.tex} \\
+    \midrule
+    (D) Income + Teleworkability \\
+    \midrule
+    \input{input/eventstudytable_inctele.tex} \\
+    \midrule
+    \input{input/eventstudytable_beta.tex} \\
+    \midrule
+    \input{input/eventstudytable_N.tex} \\
+    \bottomrule \\
+  \end{tabular}
+    }
+  \begin{minipage}{\textwidth}
+      \footnotesize
+      \textit{Note}: This table displays the results of eight county level difference-in-differences regressions on the following dependent variables: (1) the natural log of Google Trends search interest for school-centered resources; (2) the natural log of Google Trends search interest parent-centered resources;  (3) Zearn engagement normalized relative to a base period from January 6-February 7,  2020; and (4) Zearn badges normalized relative to a base period from January 6-February 7,  2020. All regression include fixed effects for year and week of year.
+      Panel A reveals the first-order effect of COVID-19 on the outcomes.
+      Panel B is a difference-in-differences on log income.
+      Panel C is a difference-in-differences on the log share of feasibly teleworkable jobs.
+      Panel D includes both sets of interaction terms.
+      I include full interactions, despite not displaying the coefficients on log income and log teleworkability.
+      Note from Eq. \refeq{inctele} that $\gamma$ is the coefficient on Post COVID $\times$ Income, so
+      $100 \times \frac{\gamma_B-\gamma_D}{\gamma_B}$ is the percentage change in this coefficient
+      when teleworkability is included.
+      I drop Thanksgiving, Christmas, and New Years, as these are outliers, but the results do not change significantly when they are included.
+      I also drop the first three weeks of March, as schools were actively closing during this time.
+      Standard errors are in parentheses and clustered by state.
+        \\ \\
+        See appendix Tables \ref{tab:placebo_computer} and \ref{tab:placebo_internet} for placebo-tests that replace the teleworkability share with the share of households with a computer or broadband internet, respectively.
+  \end{minipage}
+\end{table}
+I perform multiple placebo robustness check, substituting teleworkability share with the share of households that own a computer and the share of households that have broadband internet (Tables \ref{tab:placebo_computer} and \ref{tab:placebo_internet}).
+These checks pass, revealing that the diminishing in the COVID-induced income is specific to teleworkability.
+As all schools closed at roughly the same time, we do not need to worry about issues related to dynamic treatment effects.\footnote{Thus, I perform no robustness checks using \cite{sun}.}
+
+\begin{figure}[hbtp!]
+  \caption{The relative importance of teleworkability compared to income increased in the previous summer, and COVID shifted this effect forward in 2020}
+  \label{fig:badges_seasonal}
+    \centering
+    \begin{subfigure}[t]{0.6\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{input/eventstudyplot_badges_inctele_long.eps}
+    \end{subfigure}%
+
+    \begin{minipage}{\textwidth}
+        {\footnotesize
+        \textit{Note}: This figure displays the $\gamma$ and $\lambda$ coefficients from the county-level regression specified by equation \refeq{incteleweek}.
+        They are plotted by the relative week since March 1, 2020, $j$.
+        Teleworkability \citep{dingel} and median houeshold income (2019 ACS estimates) are log variables.
+        It is an event study displaying the relative predicted impact of one percent increase in income and teleworkability on standardized Zearn badges compared to March 1.
+        The dashed lines display 95\% confidence intervals,
+        which are determined using standard errors clustered by state.
+        }
+  \end{minipage}
+\end{figure}
+
+
+\if0
+    Additionally, the teleworkability coefficients do not change significantly when the additional controls are included in the model.
+    Therefore, the effect of teleworkability is not due to its correlation with the fraction of households that have computers or broadband internet, which are other measures of SES used \cite{bh1}.\footnote{Correlations: $Computer$ and $Teleworkability$: r=0.447; $Internet$ and $Teleworkability$: r=0.3534; $Computer$ and $Income$: r=0.7825; $Internet$ and $Income$ = 0.7065; $Computer$ and $Internet$: r=0.9026.}
+    The reduction in the income-interaction coefficients is strongest for the Zearn outcome variables.
+    As suggested by $\frac{\gamma_\refeq{incalone}-\gamma_\refeq{inctele}}{\gamma_\refeq{incalone}}$, roughly 60\% of the income effect for Zearn engagement and 48\% of the effect for Zearn achievement is explained by teleworkability.
+    Additionally, with the introduction of the other SES-related controls, the income coefficients diminish even more, while the teleworkability coefficients remain unchanged.
+    A 5.5\% (one standard deviation) increase in teleworkability increases the expected change in Zearn engagement and Zearn achievement due to COVID by 6-7\%.
+
+    The effect is even larger for search interest for school-centered resources, suggesting roughly 10\% increase in the change in search interest relative to March 1 for a one standard deviation increase in teleworkability.
+    However, stark changes when we use different methodological approaches raises the level of uncertainty associated with the Google Trends outcomes results.
+    Table \ref{table:methodcomparison} displays results for the same specification with slightly different approaches to the geographic levels.
+    In the main approach displayed in \ref{table:fullreg}, we include low-search interest areas and crosswalk the DMA-level trend outcomes and MSA-level teleworkability percentages to the county-level (with values set equal to the minimum possible search interest, as discussed above).
+    However, we could instead drop low-search interest areas or aggregate the county-level statistics to the DMA-level.
+    All four possibilities are shown in the table.
+
+
+    We see that aggregating to the DMA-level decreases the teleworkability intereaction coefficient and $\frac{\gamma_\refeq{incalone}-\gamma_\refeq{inctele}}{\gamma_\refeq{incalone}}$.
+Excluding low-search interest has the reverse effect but is not as large.
+The decrease in effect size is especially stark for parent-centered resources, which show that the introduction of teleworkability as a control \textit{increases} the income effect ($\frac{\gamma_\refeq{incalone}-\gamma_\refeq{inctele}}{\gamma_\refeq{incalone}}$ is negative).
+Given that teleworkability is twice removed from its true level (once by crosswalking to the county level, and again by aggregating the county-level estimate to the DMA-level), it is likely that its power as a predictor has been diminished.
+Regardless of the approach, a higher teleworkability percentages predicts a larger increase in search interest at COVID for school-centered resources than for parent-centered resources.
+A lower bound estimate for the impact of a 5.5\% increase in teleworkability is a 0.498\% increase in search interest for school-centered resources after COVID.
+Similarly, the income effect reduces by at least 22.4\%.
+Given the abrupt difference in coefficients by approach for parent-centered resources, there is not enough evidence to suggest that teleworkability contributed to the disproportionate increase in search interest among high-income groups due to the pandemic.
+
+    Figures \ref{fig:g_time20} - \ref{fig:z_inc_tele} display the coefficients of interest from regressions with specifications \ref{week}, \ref{inconlyweek}, and \ref{incteleweek} for the same outcome variables.
+    It illuminates how the general effects described above emerged on a weekly basis.
+    Figures \ref{fig:g_time20} and \ref{fig:z_time20} demonstrate that search interest increased abruptly while schools began to close before slowly declining towards its typical level as summer approached.
+    Conversely, the usage of Zearn dropped starkly in early March, and then fluctuated around its usual level at the end of the school year.
+    Figures \ref{fig:g_inc_only} and \ref{fig:z_inc_only} confirm that teleworkability plays a more important explanatory role in the income gaps observed in the Zearn usage data.
+    The general shape to the time-pattern of the coefficients does not change with the addition of teleworkability controls for any outcome variable.
+    However, when the income effects undergo their most rapid change, we observe the largest difference between the model with and without teleworkability controls.
+    For example, the largest gap between the income coefficients in the two models for the Zearn results occurs in early April, when the income effect diminishes much more drastically for the model with teleworkability controls.
+    We notice a similar effect for search interest for school-centered resources.
+\fi
+     We look to the event studies to compare how the relative importance of income and teleworkability as a predictor of search interest changes over the 2020 school year in more detail.
+    For seach interest for school-centered resources, teleworkability is uniquely important in late March and early April, while the income effect falls to zero.
+    Following this point, income and teleworkability are roughly of equivalent importance, with a late trend suggesting that income becomes more important in the weeks right before summer.
+    The equivalent coefficients for parent-centered resources are more stable.
+    Teleworkability and income seem to be of roughly equivalent importance until the middle of April, when the teleworkability coefficients temporarily plummet for two weeks. For the remainder of the school year, the effect of a percent increase in income on search interest for parent-centered resources was larger than the effect of a percent increase in teleworkability.
+    However, these slight weekly patterns could simply be noise related to the timing of school closures.
+
+
+    Figures \ref{fig:badges_seasonal} put the increases for the Zearn measures in perspective with general seasonal patterns.
+    It displays the time trend of the interaction coefficients for a regression over the 2019 and 2020 calendar years.
+    Based on these two years, the relative importance of teleworkability jumps during the summer, falls during the middle of the sumer, and then drops at the beginning of the school year.
+    COVID changed this pattern by shifting the sharp increase that typically happens at the beginning of the summer to the beginning of March.
+    When summer did arrive, there was an additional boost to the importance of teleworkability on student outcomes, but not as large in magnitude as the increase in the summer of 2019.
+
+    This seasonality is in stark contrast with the income effect.
+    Before COVID, the income coefficients remained roughly consistent, fluctuating about zero (meaning that the expected change in engagement per increase in income is roughly the same as it is in March 1, 2020) and exhibiting a slight bump at the beginning of summer.
+    However, the importance of income spikes during March 2020.
+    It persists for the remainder of the school year, and diminishes over the course of the summer.
+%    Unlike the prior fall, the importance of income returns during the fall of 2020, whereas the magnitude of the teleworkability coefficients are roughly equal to what they were the previous year.
+
+In all, the results of these regressions confirm that education gaps widened at the onset of the COVID-19 pandemic, suggest that part of the effect was due to differences in the ability to work from home across regions, and demonstrate that both teleworkability and income both were contributing factors to the phenomenon.
+These findings hold for both differences in search patterns for online resources and in changes in student use of online learning platforms.
+
+\if\tenpg0
+
+
+\fi
+
+

@@ -1,7 +1,7 @@
 SHELL=bash
 include ../../shell_functions.make
 
-OUTPUT = $(foreach stub, dma_merged_analysis_file.dta MSA_workfromhome.csv Zearn-County-Weekly.csv county_cbsa.csv, ../output/$(stub))
+OUTPUT = $(foreach stub, dma_merged_analysis_file.dta MSA_workfromhome.csv Zearn_County_Weekly.csv county_cbsa.csv, ../output/$(stub))
 
 all: $(OUTPUT)
 
