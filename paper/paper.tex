@@ -1,5 +1,19 @@
+\def\tenpg{1}
+\def\twentyfive{0}
+\def\thirty{0}
+\if\tenpg1
 \documentclass[11pt]{article}
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=0.5in]{geometry}
+\fi
+\if\twentyfive1
+\documentclass[12pt]{article}
+\usepackage[margin=0.95in]{geometry}
+\fi
+\if\thirty1
+\documentclass[12pt]{article}
+\usepackage[margin=1.0in]{geometry}
+\fi
+\usepackage{bibentry}
 \usepackage{bbm}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{graphicx}
@@ -20,11 +34,12 @@
 \usepackage{placeins} %Package with \FloatBarrier command
 \usepackage{physics}
 \usepackage[en-US]{datetime2}
+\usepackage{setspace}
 \newcommand{\sym}[1]{\rlap{#1}}
 
 \hypersetup{
 	pdftex,
-    pdfauthor={Jonathan I. Dingel and friends},     % author
+    pdfauthor={Luke Motley},     % author
     colorlinks=true,       % false: boxed links; true: colored links
     linkcolor=red,          % color of internal links
     citecolor=black,        % color of links to bibliography
@@ -37,12 +52,24 @@
 \newtheorem{proposition}{Proposition}
 
 % IDENTIFYING INFORMATION
-\title{A paper}
-\author{Jonathan I. Dingel\thanks{\dingelemail} \\ Chicago Booth and NBER}
-\date{\monthname[\the\month] \the\year}
+\title{Work from Home, School from Home: Teleworkability and COVID-induced Educational Inequalities}
+\author{Luke Motley\thanks{Many thanks to Professor Andrew Garin for his willingness to supervise this project and his indispensable feedback along the way.} \\ University of Illinois at Urbana-Champaign}
+\date{Completed in December 2020}
 
 
 \begin{document}
+\begin{titlepage}
+\maketitle
+
+\vspace{1.5cm}
+{\Large
+ Note: This submission is a sample of my undergraduate thesis, written in the Fall semester of 2020.
+\\ \\
+A full version of the paper and a replication package\footnote{The replication package uses \texttt{Makefiles} to reproduce every number, figure, and table in the paper from scratch, starting with the downloading of source datasets. It is executable with a single shell command, \texttt{make}. Though it is OS-independent, Stata is required. The linked GitHub page contains more detailed instructions and system requirements.} can be found at: \\
+\href{https://github.com/ljmotley/FA20-Independent-Study}{https://github.com/ljmotley/FA20-Independent-Study}.
+}
+
+\end{titlepage}
 \bibliographystyle{../bib/aeanobold-oxford}
 
 % -----------------------------------------------
@@ -50,12 +77,22 @@
 % -----------------------------------------------
 
 \begin{abstract}
-%\noindent  \input{./sections/abstract.tex}
+\input{./sections/abstract.tex}
 \end{abstract}
 \vspace{1cm}
 {\small
-\noindent \textit{Keywords}:  \\
+\noindent \textit{Keywords}:
+Online learning,
+Educational inequality,
+COVID-19,
+Google Trends,
+Teleworkability
+\\
 \textit{JEL codes}:
+I24,
+I28,
+J13,
+J24
 }
 \thispagestyle{empty}
 \newpage
@@ -65,9 +102,11 @@
 % 	BODY
 % -----------------------------------------------
 
+\if\tenpg0
+\doublespacing
+\fi
 \input{./sections/intro.tex}
 \input{./sections/background.tex}
-\section{Data \& Methodology}
 \input{./sections/data.tex}
 \input{./sections/methodology.tex}
 \input{./sections/results.tex}
@@ -80,21 +119,36 @@
 % 	REFERENCES
 % -----------------------------------------------
 
-\bibliography{../bib/bib.bib}{}
-
-\newpage
+\if\tenpg0
 \clearpage
-\input{./sections/exhibits.tex}
-\clearpage
+\bibliography{../bib/Paper.bib}{}
+\fi
+\if\tenpg1
+{
+\nobibliography{../bib/Paper.bib}{}
+\vspace{0.5cm}
+\Large \textbf{References, Additional Exhibits, and Appendix} \\
+\large\textit{Omitted to meet the page requirements. Link to full paper on the first page.}
+\fi
 
-\begin{center} \Large \textbf{Appendix -- For Online Publication} \end{center}
-\appendix
-\numberwithin{equation}{section}
-\numberwithin{figure}{section}
-\numberwithin{table}{section}
 
 %\input{./sections/appendix_theory}
 %\input{./sections/appendix_data.tex}
-%\input{./sections/appendix_empirics.tex}
+\if\tenpg0
+\clearpage
+\input{./sections/exhibits.tex}
+\begin{center} \Large \textbf{Appendix -- For Online Publication} \end{center}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\input{./sections/appendix_exhibits.tex}
+\else
+\clearpage
+\begin{center} \Large \textbf{Appendix -- For Online Publication} \end{center}
+\input{./sections/exhibits.tex}
+\input{./sections/appendix_exhibits.tex}
+
+\textit{Note: Appendix omitted to meet the page requirements. Link to full paper on the first page.}
+\fi
 
 \end{document}

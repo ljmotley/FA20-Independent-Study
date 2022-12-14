@@ -1,89 +1,109 @@
-\section{Exhibits}
+\section{Additional Exhibits}
+\if\tenpg1
+{\small
+    \textit{Note: This section has been abridged to meet the page requirements. Link to full paper on the first page.}
+}
+\fi
 
 \begin{figure}[hbt!]
-    \caption{Student online-learning engagement decreased by less for high-income counties after COVID-19}
-    \centering
-    \includegraphics[width=0.7\linewidth]{input/timetrend_engagement.eps}
-\end{figure}
-
-\begin{figure}[hbt!]
-  \caption{Student online-learning achievement only increased in high-income counties after COVID-19}
-    \centering
-    \includegraphics[width=0.7\linewidth]{input/timetrend_badges.eps}
-\end{figure}
-
-\begin{figure}[hbt!]
-  \caption{Search intensity increased at the onset of COVID-19}
-    \centering
-    \includegraphics[width=0.7\linewidth]{input/timetrend_gtrends.eps}
-\end{figure}
-
-
-\begin{figure}[hbt!]
-  \caption{Google Trends search intensity for educational resources increased more for highly-teleworkable counties}
+  \caption{High-teleworkability regions experienced a relative gain in educational outcomes related to both student and parent behavior, even when controlling for income}
+  \label{fig:eventstudy2}
     \centering
     \begin{subfigure}[t]{0.49\textwidth}
-    \caption{School-centered}
+    \caption{School-centered resources}
         \centering
         \includegraphics[width=\linewidth]{input/eventstudyplot_specific1_inctele.eps}
     \end{subfigure}%
     ~
     \begin{subfigure}[t]{0.49\textwidth}
-    \caption{Parent-centered}
+    \caption{Student online-learning engagement}
         \centering
-        \includegraphics[width=\linewidth]{input/eventstudyplot_generic_inctele.eps}
+        \includegraphics[width=\linewidth]{input/eventstudyplot_engagement_inctele.eps}
     \end{subfigure}
+
+    \begin{minipage}{\textwidth}
+        {\footnotesize
+        \textit{Note}: This figure displays the $\gamma$ and $\lambda$ coefficients from the county-level regression specified by equation \refeq{incteleweek}.
+        They are plotted by the relative week since March 1, 2020, $j$.
+        Teleworkability \citep{dingel} and median houeshold income (2019 ACS estimates) are log variables.
+        Panel (A) is an event study displaying the relative predicted impact of one percent increase in income and teleworkability on log search interest for parent-centered resources compared to March 1.
+        Panel (B) is an event study displaying the relative predicted impact of one percent increase in income and teleworkability on standardized Zearn badges compared to March 1.
+        The intervals are 95\% confidence intervals,
+        which are determined using standard errors clustered by state.
+        }
+  \end{minipage}
 \end{figure}
 
 \begin{figure}[hbt!]
-  \caption{Teleworkability and income are highly, but not perfectly correlated}
+    \caption{COVID-19 had a negative impact on overall student engagement and a no effect on overall student achievement}
+  \label{fig:eventstudy2}
     \centering
-    \includegraphics[width=0.7\linewidth]{input/scatter_lninc_lntele.eps}
+    \begin{subfigure}[t]{0.49\textwidth}
+    \caption{Student online-learning achievement}
+        \centering
+        \includegraphics[width=\linewidth]{input/eventstudyplot_badges_wks.eps}
+    \end{subfigure}%
+    ~
+    \begin{subfigure}[t]{0.49\textwidth}
+    \caption{Student online-learning engagement}
+        \centering
+        \includegraphics[width=\linewidth]{input/eventstudyplot_engagement_wks.eps}
+    \end{subfigure}
+
+    \begin{minipage}{\textwidth}
+        {\footnotesize
+        \textit{Note}:
+        This plot displays the coefficients from a regression of the Zearn outcomes on indicators for the relative week since March 1, 2020, $j$.
+        The intervals are 95\% confidence intervals,
+        which are determined using standard errors clustered by state.
+        }
+  \end{minipage}
 \end{figure}
 
+
+
+
+
 \begin{figure}[hbt!]
-  \caption{CBSA-level variation in teleworkability shows slight variation with income}
+  \caption{Similar spatial variation in teleworkability, income, and outcomes for counties in the sample}
     \centering
     \begin{subfigure}[t]{0.65\textwidth}
-    \caption{Log teleworkability}
+    \caption{Log teleworkability share}
         \centering
-        \includegraphics[width=\linewidth]{input/map_lntele.eps}
+        \includegraphics[width=\linewidth]{input/map_tele.eps}
     \end{subfigure}%
 
-    \begin{subfigure}[t]{0.65\textwidth}
+    \begin{subfigure}[t]{0.7\textwidth}
     \caption{Log median household income}
         \centering
         \includegraphics[width=\linewidth]{input/map_lninc.eps}
     \end{subfigure}
+
+    \begin{subfigure}[t]{0.7\textwidth}
+    \caption{Standardized Zearn badges}
+        \centering
+        \includegraphics[width=\linewidth]{input/map_badges.eps}
+    \end{subfigure}
 \end{figure}
 
+\begin{figure}[hbt!]
+  \caption{Teleworkability is correlated with income}
+    \centering
+    \includegraphics[width=0.7\linewidth]{input/scatter_lninc_lntele.eps}
+    \begin{minipage}{\textwidth}
+    \footnotesize \textit{Note:} This scatterplot displays the relationship between the log feasibility to work from home from \cite{dingel} and log median household income (2019 ACS 5-year sample estimates).
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[hbt!]
+  \caption{Correlation between teleworkability and constructed work from home score}
+  \label{fig:scatter_wfh}
+    \centering
+    \includegraphics[width=0.7\linewidth]{input/scatter_teleworkability_wfhscore.eps}
+    \begin{minipage}{\textwidth}
+        \footnotesize \textit{Note:} This scatterplot plots the relationship between the \cite{dingel} teleworkability share and the constructed work from home score using \cite{mongey} (which incorporates \cite{dingel}). The results hold when using the \cite{mongey} measure (see online appendix).
+    \end{minipage}
+\end{figure}
 \clearpage
 
-\begin{table}[hbtp!]
-  \centering
-  \begin{tabular}{l c c c c c}
-    \toprule
-    \input{input/eventstudytable_mtitles.tex} \\
-    \midrule
-    (A) Post-COVID \\
-    \midrule
-    \input{input/eventstudytable_wks.tex} \\
-    \midrule
-    (B) Income Alone \\
-    \midrule
-    \input{input/eventstudytable_inc.tex} \\
-    \midrule
-    (C) Teleworkability Alone \\
-    \midrule
-    \input{input/eventstudytable_tele.tex} \\
-    \midrule
-    (D) Income + Teleworkability \\
-    \midrule
-    \input{input/eventstudytable_inctele.tex} \\
-    \midrule
-    \input{input/eventstudytable_beta.tex} \\
-    \midrule
-    \input{input/eventstudytable_N.tex} \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+
